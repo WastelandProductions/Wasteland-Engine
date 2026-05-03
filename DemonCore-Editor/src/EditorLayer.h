@@ -5,7 +5,7 @@
 
 namespace Wasteland {
 
-	class EditorLayer : public Wasteland::Layer
+	class EditorLayer : public Layer
 	{
 	public:
 		EditorLayer();
