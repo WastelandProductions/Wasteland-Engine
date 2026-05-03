@@ -143,19 +143,19 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\EditorLayer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\DemonCoreEditorApp.cpp" />
+    <ClCompile Include="src\EditorLayer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Wasteland\Wasteland.vcxproj">
       <Project>{E8DDB8B7-5448-6D2E-9D86-1ED409304B83}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Wasteland\vendor\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\EditorLayer.cpp" />
-    <ClCompile Include="src\DemonCoreEditorApp.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\EditorLayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -23,7 +23,6 @@ private:
 	// Temp
 	Wasteland::Ref<Wasteland::VertexArray> m_SquareVA;
 	Wasteland::Ref<Wasteland::Shader> m_FlatColorShader;
-	Wasteland::Ref<Wasteland::Framebuffer> m_Framebuffer;
 
 	Wasteland::Ref<Wasteland::Texture2D> m_CheckerboardTexture;
 	Wasteland::Ref<Wasteland::Texture2D> m_SpriteSheet;

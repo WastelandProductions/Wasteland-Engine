@@ -213,6 +213,7 @@ namespace Wasteland {
 	{
 	public:
 		DemonCoreEditor()
+			: Application("DemonCore Editor")
 		{
 			// PushLayer(new ExampleLayer());
 			PushLayer(new EditorLayer());

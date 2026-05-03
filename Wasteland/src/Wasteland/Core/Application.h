@@ -16,7 +16,7 @@ namespace Wasteland {
 	class Application
 	{
 	public: 
-		Application();
+		Application(const std::string& name = "Wasteland App");
 		virtual ~Application();
 
 		void Run();

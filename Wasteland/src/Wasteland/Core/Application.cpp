@@ -15,14 +15,14 @@ namespace Wasteland {
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application()
+	Application::Application(const std::string& name)
 	{
 		WL_PROFILE_FUNCTION();
 
 		WL_CORE_ASSERT(!s_Instance, "Application already exists");
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps(name)));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		Renderer::Init();
