@@ -209,25 +209,25 @@ private:
 
 namespace Wasteland {
 
-	class  : public Application
+	class DemonCoreEditor : public Application
 	{
 	public:
-		Sandbox()
+		DemonCoreEditor()
 		{
 			// PushLayer(new ExampleLayer());
-			PushLayer(new Sandbox2D());
+			PushLayer(new EditorLayer());
 		}
 
-		~Sandbox()
+		~DemonCoreEditor()
 		{
 
 		}
 
 	};
 
-	Application* WCreateApplication()
+	Application* CreateApplication()
 	{
-		return new Sandbox();
+		return new DemonCoreEditor();
 	}
 
 }

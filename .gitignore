@@ -366,3 +366,6 @@ FodyWeavers.xsd
 /Sandbox/WastelandProfile-Shutdown.json
 /Sandbox/WastelandProfile-Startup.json
 /Sandbox/imgui.ini
+/DemonCore-Editor/WastelandProfile-Runtime.json
+/DemonCore-Editor/WastelandProfile-Shutdown.json
+/DemonCore-Editor/WastelandProfile-Startup.json
