@@ -1,6 +1,6 @@
 workspace "Wasteland"
 	architecture "x64"
-	startproject "Sandbox"
+	startproject "DemonCore-Editor"
 
 	configurations
 	{
