@@ -3,6 +3,7 @@
 
 #include "Wasteland/Core/Input.h"
 #include "Wasteland/Core/KeyCodes.h"
+#include "Wasteland/Core/MouseButtonCodes.h"
 
 namespace Wasteland {
 
@@ -17,14 +18,14 @@ namespace Wasteland {
 	{
 		WL_PROFILE_FUNCTION();
 
-		if (Input::IsKeyPressed(WL_KEY_A))
+		if (Input::IsKeyPressed(WL_KEY_A) && Input::IsMouseButtonPressed(WL_MOUSE_BUTTON_2))
 			m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
-		else if (Input::IsKeyPressed(WL_KEY_D))
+		else if (Input::IsKeyPressed(WL_KEY_D) && Input::IsMouseButtonPressed(WL_MOUSE_BUTTON_2))
 			m_CameraPosition.x += m_CameraTranslationSpeed * ts;
 
-		if (Input::IsKeyPressed(WL_KEY_W))
+		if (Input::IsKeyPressed(WL_KEY_W) && Input::IsMouseButtonPressed(WL_MOUSE_BUTTON_2))
 			m_CameraPosition.y += m_CameraTranslationSpeed * ts;
-		else if (Input::IsKeyPressed(WL_KEY_S))
+		else if (Input::IsKeyPressed(WL_KEY_S) && Input::IsMouseButtonPressed(WL_MOUSE_BUTTON_2))
 			m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
 
 		if (m_Rotation)
