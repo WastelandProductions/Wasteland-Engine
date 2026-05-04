@@ -59,12 +59,22 @@ it has __linux__ defined */
 #endif // End of DLL support
 
 #ifdef WL_DEBUG
+#if defined(WL_PLATFORM_WINDOWS)
+#define WL_DEBUGBREAK() __debugbreak()
+#elif defined(WL_PLATFORM_LINUX)
+#include <signal.h>
+#define WL_DEBUGBREAK() raise(SIGTRAP)
+#else
+#error "Platform doesn't support debugbreak yet!"
+#endif
 #define WL_ENABLE_ASSERTS
+#else
+#define WL_DEBUGBREAK()
 #endif
 
 #ifdef WL_ENABLE_ASSERTS
-#define WL_ASSERT(x, ...) { if(!(x)) { WL_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-#define WL_CORE_ASSERT(x, ...) { if(!(x)) { WL_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#define WL_ASSERT(x, ...) { if(!(x)) { WL_ERROR("Assertion Failed: {0}", __VA_ARGS__); WL_DEBUGBREAK(); } }
+#define WL_CORE_ASSERT(x, ...) { if(!(x)) { WL_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); WL_DEBUGBREAK(); } }
 #else
 #define WL_ASSERT(x, ...)
 #define WL_CORE_ASSERT(x, ...)
