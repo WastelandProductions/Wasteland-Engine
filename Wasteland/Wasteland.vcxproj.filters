@@ -31,6 +31,9 @@
     <Filter Include="src\Wasteland\Renderer">
       <UniqueIdentifier>{45AAF71C-31A4-206F-1A11-B77F06AA86DB}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Wasteland\Scene">
+      <UniqueIdentifier>{1C4012F9-88A1-EF06-110F-36B97D6F26C6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
     </Filter>
@@ -176,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="src\Wasteland\Renderer\VertexArray.h">
       <Filter>src\Wasteland\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Wasteland\Scene\Scene.h">
+      <Filter>src\Wasteland\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\wlpch.h">
       <Filter>src</Filter>
@@ -1522,6 +1528,9 @@
     </ClCompile>
     <ClCompile Include="src\Wasteland\Renderer\VertexArray.cpp">
       <Filter>src\Wasteland\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Wasteland\Scene\Scene.cpp">
+      <Filter>src\Wasteland\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\wlpch.cpp">
       <Filter>src</Filter>

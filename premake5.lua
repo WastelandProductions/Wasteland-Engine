@@ -18,6 +18,7 @@ IncludeDir["Glad"] = "Wasteland/vendor/Glad/include"
 IncludeDir["ImGui"] = "Wasteland/vendor/imgui"
 IncludeDir["glm"] = "Wasteland/vendor/glm"
 IncludeDir["stb_image"] = "Wasteland/vendor/stb_image"
+IncludeDir["entt"] = "Wasteland/vendor/entt/single_include"
 
 group "Dependencies"
 	include "Wasteland/vendor/GLFW"
@@ -62,7 +63,8 @@ project "Wasteland"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 
 	links 
@@ -125,7 +127,8 @@ project "Sandbox"
 		"Wasteland/vendor",
 		"Wasteland/src",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
@@ -184,7 +187,8 @@ project "DemonCore-Editor"
 		"Wasteland/vendor",
 		"Wasteland/src",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
