@@ -187,7 +187,8 @@ project "DemonCore-Editor"
 		"Wasteland/vendor",
 		"Wasteland/src",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.entt}"
 	}
 
 	links

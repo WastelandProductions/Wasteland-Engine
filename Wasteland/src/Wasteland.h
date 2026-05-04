@@ -2,6 +2,8 @@
 
 // For use in Wasteland applications
 
+#include "Wasteland/Core/Core.h"
+
 #include "Wasteland/Core/Application.h"
 #include "Wasteland/Core/Layer.h"
 #include "Wasteland/Core/Log.h"
@@ -14,6 +16,9 @@
 #include "Wasteland/Renderer/OrthographicCameraController.h"
 
 #include "Wasteland/ImGui/ImGuiLayer.h"
+
+#include "Wasteland/Scene/Scene.h"
+#include "Wasteland/Scene/Components.h"
 
 // ---Renderer------------------------------------
 #include "Wasteland/Renderer/Renderer.h"

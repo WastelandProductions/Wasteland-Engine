@@ -180,6 +180,9 @@
     <ClInclude Include="src\Wasteland\Renderer\VertexArray.h">
       <Filter>src\Wasteland\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Wasteland\Scene\Components.h">
+      <Filter>src\Wasteland\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\Wasteland\Scene\Scene.h">
       <Filter>src\Wasteland\Scene</Filter>
     </ClInclude>

@@ -192,6 +192,7 @@
     <ClInclude Include="src\Wasteland\Renderer\SubTexture2D.h" />
     <ClInclude Include="src\Wasteland\Renderer\Texture.h" />
     <ClInclude Include="src\Wasteland\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Wasteland\Scene\Components.h" />
     <ClInclude Include="src\Wasteland\Scene\Scene.h" />
     <ClInclude Include="src\wlpch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
