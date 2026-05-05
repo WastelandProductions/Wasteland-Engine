@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "Wasteland/Renderer/Camera.h"
+
 namespace Wasteland {
 
 	struct TagComponent
@@ -34,6 +36,17 @@ namespace Wasteland {
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
 		SpriteRendererComponent(const glm::vec4& color)
 			: Color(color) {}
+	};
+
+	struct CameraComponent
+	{
+		Wasteland::Camera Camera;
+		bool Primary = true; // TODO: think about moving to scene
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
+		CameraComponent(const glm::mat4& projection)
+			: Camera(projection) {}
 	};
 
 }
