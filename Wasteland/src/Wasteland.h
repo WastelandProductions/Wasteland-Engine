@@ -18,6 +18,7 @@
 #include "Wasteland/ImGui/ImGuiLayer.h"
 
 #include "Wasteland/Scene/Scene.h"
+#include "Wasteland/Scene/Entity.h"
 #include "Wasteland/Scene/Components.h"
 
 // ---Renderer------------------------------------

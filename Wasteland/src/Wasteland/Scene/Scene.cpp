@@ -1,11 +1,12 @@
 #include "wlpch.h"
 #include "Scene.h"
 
+#include "Components.h"
 #include "Wasteland/Renderer/Renderer2D.h"
 
-#include "Components.h"
-
 #include <glm/glm.hpp>
+
+#include "Entity.h"
 
 namespace Wasteland {
 
@@ -27,7 +28,7 @@ namespace Wasteland {
 
 		m_Registry.on_construct<TransformComponent>().connect<&OnTransformConstruct>();
 
-		if (m_Registry.current(entity))
+		if (m_Registry.try_get<TransformComponent>(entity))
 			TransformComponent& transform = m_Registry.get<TransformComponent>(entity);
 
 		auto view = m_Registry.view<TransformComponent>();
@@ -48,9 +49,13 @@ namespace Wasteland {
 	{
 	}
 
-	entt::entity Scene::CreateEntity()
+	Entity Scene::CreateEntity(const std::string& name)
 	{
-		return m_Registry.create();
+		Entity entity = { m_Registry.create(), this };
+		entity.AddComponent<TransformComponent>();
+		auto& tag = entity.AddComponent<TagComponent>();
+		tag.Tag = name.empty() ? "Entity" : name;
+		return entity;
 	}
 
 	void Scene::OnUpdate(Timestep ts)

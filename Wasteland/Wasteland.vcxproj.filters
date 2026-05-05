@@ -183,6 +183,9 @@
     <ClInclude Include="src\Wasteland\Scene\Components.h">
       <Filter>src\Wasteland\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Wasteland\Scene\Entity.h">
+      <Filter>src\Wasteland\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\Wasteland\Scene\Scene.h">
       <Filter>src\Wasteland\Scene</Filter>
     </ClInclude>
@@ -1531,6 +1534,9 @@
     </ClCompile>
     <ClCompile Include="src\Wasteland\Renderer\VertexArray.cpp">
       <Filter>src\Wasteland\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Wasteland\Scene\Entity.cpp">
+      <Filter>src\Wasteland\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Wasteland\Scene\Scene.cpp">
       <Filter>src\Wasteland\Scene</Filter>
