@@ -1453,6 +1453,8 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Wasteland\Renderer\Camera.h" />
+    <ClInclude Include="src\Wasteland\Scene\SceneCamera.h" />
+    <ClInclude Include="src\Wasteland\Scene\ScriptableEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1548,5 +1550,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Wasteland\Scene\SceneCamera.cpp" />
   </ItemGroup>
 </Project>
