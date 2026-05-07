@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Wasteland.h"
+#include "Panels/SceneHierarchyPanel.h"
 #include <Wasteland/Renderer/Texture.h>
 
 namespace Wasteland {
@@ -43,6 +44,9 @@ namespace Wasteland {
 
 		uint32_t m_MapWidth, m_MapHeight;
 		std::unordered_map<char, Ref<SubTexture2D>> s_TextureMap;
+
+		// Panels
+		SceneHierarchyPanel m_SceneHierarchyPanel;
 	};
 
 }

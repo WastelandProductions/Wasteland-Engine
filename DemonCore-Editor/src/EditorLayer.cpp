@@ -91,6 +91,8 @@ namespace Wasteland {
 		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 		m_SecondCamera.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+
 		m_TextureStairs = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 0, 11 }, { 128.0f, 128.0f });
 		m_TextureTree = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 1 }, { 128.0f, 128.0f }, { 1, 2 });
 
@@ -215,6 +217,8 @@ namespace Wasteland {
 
 				ImGui::EndMenuBar();
 			}
+
+			m_SceneHierarchyPanel.OnImGuiRender();
 
 			ImGui::Begin("Settings");
 
