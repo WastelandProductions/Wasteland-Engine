@@ -49,14 +49,18 @@ namespace Wasteland {
 		auto square = m_ActiveScene->CreateEntity("Green Square");
 		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
 
+		auto redSquare = m_ActiveScene->CreateEntity("Red Square");
+		redSquare.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
+
 		m_SquareEntity = square;
 
 		m_CameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
-		m_CameraEntity.AddComponent<CameraComponent>();
+		auto& cc1 = m_CameraEntity.AddComponent<CameraComponent>();
+		cc1.Primary = true;
 
 		m_SecondCamera = m_ActiveScene->CreateEntity("Clip-Space Entity");
-		auto& cc = m_SecondCamera.AddComponent<CameraComponent>();
-		cc.Primary = false;
+		auto& cc2 = m_SecondCamera.AddComponent<CameraComponent>();
+		cc2.Primary = false;
 		
 		class CameraController : public ScriptableEntity
 		{
