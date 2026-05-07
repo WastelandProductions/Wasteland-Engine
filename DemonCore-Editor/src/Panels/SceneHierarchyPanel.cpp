@@ -67,6 +67,8 @@ namespace Wasteland {
 
 	static void DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f, float columnWidth = 100.0f)
 	{
+		ImGui::PushID(label.c_str());
+
 		ImGui::Columns(2);
 		ImGui::SetColumnWidth(0, columnWidth);
 		ImGui::Text(label.c_str());
@@ -116,6 +118,8 @@ namespace Wasteland {
 		ImGui::PopStyleVar();
 
 		ImGui::Columns(1);
+
+		ImGui::PopID();
 	}
 
 	void SceneHierarchyPanel::DrawComponents(Entity entity)
@@ -139,6 +143,10 @@ namespace Wasteland {
 			{
 				auto& tc = entity.GetComponent<TransformComponent>();
 				DrawVec3Control("Translation", tc.Translation);
+				glm::vec3 rotation = glm::degrees(tc.Rotation);
+				DrawVec3Control("Rotation", rotation);
+				tc.Rotation = glm::radians(rotation);
+				DrawVec3Control("Scale", tc.Scale, 1.0f);
 
 				ImGui::TreePop();
 			}
