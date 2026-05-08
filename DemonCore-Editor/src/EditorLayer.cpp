@@ -7,6 +7,8 @@
 
 #include <Wasteland/Scene/Entity.h>
 
+#include "Wasteland/Scene/SceneSerializer.h"
+
 namespace Wasteland {
 
 	static const uint32_t s_MapWidth = 24;
@@ -107,6 +109,8 @@ namespace Wasteland {
 		s_TextureMap['W'] = SubTexture2D::CreateFromCoords(m_SpriteSheet, { 11, 11 }, { 128.0f, 128.0f });
 
 		m_CameraController.SetZoomLevel(5.0f);
+
+		
 	}
 
 	void EditorLayer::OnDetach()
@@ -207,13 +211,22 @@ namespace Wasteland {
 
 			if (ImGui::BeginMenuBar())
 			{
-				if (ImGui::BeginMenu("Options"))
+				if (ImGui::BeginMenu("File"))
 				{
 					// Disabling fullscreen would allow the window to be moved to the front of other windows,
 					// which we can't undo at the moment without finer window depth/z control.
-					ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen);
-					ImGui::MenuItem("Padding", NULL, &opt_padding);
-					ImGui::Separator();
+
+					if (ImGui::MenuItem("Serialize"))
+					{
+						SceneSerializer serializer(m_ActiveScene);
+						serializer.Serialize("assets/scenes/Example.wastescene");
+					}
+
+					if (ImGui::MenuItem("Deserialize"))
+					{
+						SceneSerializer serializer(m_ActiveScene);
+						serializer.Deserialize("assets/scenes/Example.wastescene");
+					}
 
 					if (ImGui::MenuItem("Exit")) Wasteland::Application::Get().Close();
 					ImGui::EndMenu();

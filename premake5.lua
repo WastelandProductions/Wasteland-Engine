@@ -19,11 +19,13 @@ IncludeDir["ImGui"] = "Wasteland/vendor/imgui"
 IncludeDir["glm"] = "Wasteland/vendor/glm"
 IncludeDir["stb_image"] = "Wasteland/vendor/stb_image"
 IncludeDir["entt"] = "Wasteland/vendor/entt/single_include"
+IncludeDir["yaml_cpp"] = "Wasteland/vendor/yaml-cpp/include"
 
 group "Dependencies"
 	include "Wasteland/vendor/GLFW"
 	include "Wasteland/vendor/Glad"
 	include "Wasteland/vendor/imgui"
+	include "Wasteland/vendor/yaml-cpp"
 
 group ""
 
@@ -32,7 +34,6 @@ project "Wasteland"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "On"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -52,7 +53,8 @@ project "Wasteland"
 
 	defines
 	{
-		"_CRT_SECURE_NO_WARNINGS"
+		"_CRT_SECURE_NO_WARNINGS",
+		"YAML_CPP_STATIC_DEFINE"
 	}
 
 	includedirs
@@ -64,7 +66,8 @@ project "Wasteland"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.yaml_cpp}"
 	}
 
 	links 
@@ -72,6 +75,7 @@ project "Wasteland"
 		"GLFW",
 		"Glad",
 		"ImGui",
+		"yaml-cpp",
 		"opengl32.lib"
 	}
 
@@ -110,7 +114,6 @@ project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "On"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -170,7 +173,6 @@ project "DemonCore-Editor"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "On"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -181,6 +183,11 @@ project "DemonCore-Editor"
 		"%{prj.name}/src/**.cpp"
 	}
 
+	defines
+	{
+		"YAML_CPP_STATIC_DEFINE"
+	}
+
 	includedirs
 	{
 		"Wasteland/vendor/spdlog/include",
@@ -188,13 +195,15 @@ project "DemonCore-Editor"
 		"Wasteland/src",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.yaml_cpp}"
 	}
 
 	links
 	{
 		"Wasteland",
-		"ImGui"
+		"ImGui",
+		"yaml-cpp"
 	}
 
 	filter "system:windows"
