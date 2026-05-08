@@ -9,6 +9,8 @@
 
 #include "Wasteland/Scene/SceneSerializer.h"
 
+#include "Wasteland/Utils/PlatformUtils.h"
+
 namespace Wasteland {
 
 	static const uint32_t s_MapWidth = 24;
@@ -216,17 +218,16 @@ namespace Wasteland {
 					// Disabling fullscreen would allow the window to be moved to the front of other windows,
 					// which we can't undo at the moment without finer window depth/z control.
 
-					if (ImGui::MenuItem("Serialize"))
-					{
-						SceneSerializer serializer(m_ActiveScene);
-						serializer.Serialize("assets/scenes/Example.wastescene");
-					}
+					if (ImGui::MenuItem("New", "Ctrl+N"))
+						NewScene();
 
-					if (ImGui::MenuItem("Deserialize"))
-					{
-						SceneSerializer serializer(m_ActiveScene);
-						serializer.Deserialize("assets/scenes/Example.wastescene");
-					}
+					if (ImGui::MenuItem("Open...", "Ctrl+O"))
+						OpenScene();
+
+					if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
+						SaveSceneAs();
+
+					ImGui::Separator();
 
 					if (ImGui::MenuItem("Exit")) Wasteland::Application::Get().Close();
 					ImGui::EndMenu();
@@ -291,6 +292,74 @@ namespace Wasteland {
 	void EditorLayer::OnEvent(Event& e)
 	{
 		m_CameraController.OnEvent(e);
+
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<KeyPressedEvent>(WL_BIND_EVENT_FN(EditorLayer::OnKeyPressed));
+	}
+
+	bool EditorLayer::OnKeyPressed(KeyPressedEvent& e)
+	{
+		// Shortcuts
+		if (e.GetRepeatCount() > 0)
+			return false;
+
+		bool control = Input::IsKeyPressed(WL_KEY_LEFT_CONTROL) || Input::IsKeyPressed(WL_KEY_RIGHT_CONTROL);
+		bool shift = Input::IsKeyPressed(WL_KEY_LEFT_SHIFT) || Input::IsKeyPressed(WL_KEY_RIGHT_SHIFT);
+		switch (e.GetKeyCode())
+		{
+			case WL_KEY_N:
+			{
+				if (control)
+					NewScene();
+
+				break;
+			}
+			case WL_KEY_O:
+			{
+				if (control)
+					OpenScene();
+
+				break;
+			}
+			case WL_KEY_S:
+			{
+				if (control && shift)
+					SaveSceneAs();
+
+				break;
+			}
+		}
+	}
+
+	void EditorLayer::NewScene()
+	{
+		m_ActiveScene = CreateRef<Scene>();
+		m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+	}
+
+	void EditorLayer::OpenScene()
+	{
+		std::string filepath = FileDialogs::OpenFile("Wasteland Scene (*.wastescene)\0*.wastescene\0");
+		if (!filepath.empty())
+		{
+			m_ActiveScene = CreateRef<Scene>();
+			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Deserialize("assets/scenes/Example.wastescene");
+		}
+	}
+
+	void EditorLayer::SaveSceneAs()
+	{
+		std::string filepath = FileDialogs::SaveFile("Wasteland Scene (*.wastescene)\0*.wastescene\0");
+		if (!filepath.empty())
+		{
+			SceneSerializer serializer(m_ActiveScene);
+			serializer.Serialize("filepath");
+		}
 	}
 
 }

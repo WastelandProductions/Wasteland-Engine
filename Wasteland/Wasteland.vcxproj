@@ -199,6 +199,7 @@
     <ClInclude Include="src\Wasteland\Scene\SceneCamera.h" />
     <ClInclude Include="src\Wasteland\Scene\SceneSerializer.h" />
     <ClInclude Include="src\Wasteland\Scene\ScriptableEntity.h" />
+    <ClInclude Include="src\Wasteland\Utils\PlatformUtils.h" />
     <ClInclude Include="src\wlpch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />
@@ -630,6 +631,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsPlatformUtils.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\Wasteland\Core\Application.cpp" />
     <ClCompile Include="src\Wasteland\Core\Layer.cpp" />
