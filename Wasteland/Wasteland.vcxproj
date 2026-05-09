@@ -182,6 +182,7 @@
     <ClInclude Include="src\Wasteland\Math\Math.h" />
     <ClInclude Include="src\Wasteland\Renderer\Buffer.h" />
     <ClInclude Include="src\Wasteland\Renderer\Camera.h" />
+    <ClInclude Include="src\Wasteland\Renderer\EditorCamera.h" />
     <ClInclude Include="src\Wasteland\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Wasteland\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Wasteland\Renderer\OrthographicCamera.h" />
@@ -643,6 +644,7 @@
     <ClCompile Include="src\Wasteland\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Wasteland\Math\Math.cpp" />
     <ClCompile Include="src\Wasteland\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Wasteland\Renderer\EditorCamera.cpp" />
     <ClCompile Include="src\Wasteland\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Wasteland\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Wasteland\Renderer\OrthographicCameraController.cpp" />

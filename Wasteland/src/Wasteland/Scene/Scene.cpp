@@ -32,10 +32,8 @@ namespace Wasteland {
 		m_Registry.destroy(entity);
 	}
 
-	void Scene::OnUpdate(Timestep ts)
+	void Scene::OnUpdateRuntime(Timestep ts)
 	{
-		WL_CORE_ASSERT(this, "Scene is null!");
-
 		// Update scripts
 		{
 			m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
@@ -86,10 +84,23 @@ namespace Wasteland {
 		}
 	}
 
+	void Scene::OnUpdateEditor(Timestep ts, EditorCamera& camera)
+	{
+		Renderer2D::BeginScene(camera);
+
+		auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+		for (auto entity : group)
+		{
+			auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+
+			Renderer2D::DrawQuad(transform.GetTransform(), sprite.Color);
+		}
+
+		Renderer2D::EndScene();
+	}
+
 	void Scene::OnViewportResize(uint32_t width, uint32_t height)
 	{
-		WL_CORE_ASSERT(this, "Scene is null!");
-
 		m_ViewportWidth = width;
 		m_ViewportHeight = height;
 
@@ -105,8 +116,6 @@ namespace Wasteland {
 
 	Entity Scene::GetPrimaryCameraEntity()
 	{
-		WL_CORE_ASSERT(this, "Scene is null!");
-
 		auto view = m_Registry.view<CameraComponent>();
 		for (auto entity : view)
 		{

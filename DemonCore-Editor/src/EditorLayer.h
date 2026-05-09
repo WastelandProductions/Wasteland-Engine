@@ -4,6 +4,8 @@
 #include "Panels/SceneHierarchyPanel.h"
 #include <Wasteland/Renderer/Texture.h>
 
+#include "Wasteland/Renderer/EditorCamera.h"
+
 namespace Wasteland {
 
 	class EditorLayer : public Layer
@@ -38,6 +40,8 @@ namespace Wasteland {
 		Entity m_SecondCamera;
 
 		bool m_PrimaryCamera = true;
+
+		EditorCamera m_EditorCamera;
 
 		Ref<Texture2D> m_CheckerboardTexture;
 		Ref<Texture2D> m_SpriteSheet;
