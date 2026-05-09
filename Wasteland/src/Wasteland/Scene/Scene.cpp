@@ -34,6 +34,8 @@ namespace Wasteland {
 
 	void Scene::OnUpdate(Timestep ts)
 	{
+		WL_CORE_ASSERT(this, "Scene is null!");
+
 		// Update scripts
 		{
 			m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
@@ -86,6 +88,8 @@ namespace Wasteland {
 
 	void Scene::OnViewportResize(uint32_t width, uint32_t height)
 	{
+		WL_CORE_ASSERT(this, "Scene is null!");
+
 		m_ViewportWidth = width;
 		m_ViewportHeight = height;
 
@@ -97,6 +101,20 @@ namespace Wasteland {
 			if (!cameraComponent.FixedAspectRatio)
 				cameraComponent.Camera.SetViewportSize(width, height);
 		}
+	}
+
+	Entity Scene::GetPrimaryCameraEntity()
+	{
+		WL_CORE_ASSERT(this, "Scene is null!");
+
+		auto view = m_Registry.view<CameraComponent>();
+		for (auto entity : view)
+		{
+			const auto& camera = view.get<CameraComponent>(entity);
+			if (camera.Primary)
+				return Entity{ entity, this };
+		}
+		return {};
 	}
 
 	template<typename T>

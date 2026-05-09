@@ -20,6 +20,7 @@ IncludeDir["glm"] = "Wasteland/vendor/glm"
 IncludeDir["stb_image"] = "Wasteland/vendor/stb_image"
 IncludeDir["entt"] = "Wasteland/vendor/entt/single_include"
 IncludeDir["yaml_cpp"] = "Wasteland/vendor/yaml-cpp/include"
+IncludeDir["ImGuizmo"] = "Wasteland/vendor/ImGuizmo"
 
 group "Dependencies"
 	include "Wasteland/vendor/GLFW"
@@ -49,6 +50,9 @@ project "Wasteland"
 		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
+
+		"%{prj.name}/vendor/ImGuizmo/ImGuizmo.h",
+		"%{prj.name}/vendor/ImGuizmo/ImGuizmo.cpp"
 	}
 
 	defines
@@ -67,7 +71,8 @@ project "Wasteland"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
-		"%{IncludeDir.yaml_cpp}"
+		"%{IncludeDir.yaml_cpp}",
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links 
@@ -78,6 +83,12 @@ project "Wasteland"
 		"yaml-cpp",
 		"opengl32.lib"
 	}
+
+	filter "files:vendor/ImGuizmo/**.cpp"
+		flags 
+		{
+			"NoPCH"
+		}
 
 	filter "system:windows"
 		systemversion "latest"
@@ -196,7 +207,8 @@ project "DemonCore-Editor"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.entt}",
-		"%{IncludeDir.yaml_cpp}"
+		"%{IncludeDir.yaml_cpp}",
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links
