@@ -358,7 +358,7 @@ namespace Wasteland {
 		if (!filepath.empty())
 		{
 			SceneSerializer serializer(m_ActiveScene);
-			serializer.Serialize("filepath");
+			serializer.Serialize("assets/scenes/Example.wastescene");
 		}
 	}
 
