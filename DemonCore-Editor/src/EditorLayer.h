@@ -48,6 +48,7 @@ namespace Wasteland {
 		Ref<SubTexture2D> m_TextureStairs, m_TextureBarrel, m_TextureTree;
 
 		glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
+		glm::vec2 m_ViewportBounds[2];
 
 		bool m_ViewportFocused = false;
 		bool m_ViewportHovered = false;
