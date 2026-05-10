@@ -30,9 +30,15 @@ namespace Wasteland {
 		}
 
 		template<typename T>
-		bool HasComponent()
+		T* TryGetComponent()
 		{
 			return m_Scene->m_Registry.try_get<T>(m_EntityHandle);
+		}
+
+		template<typename T>
+		bool HasComponent()
+		{
+			return m_Scene->m_Registry.all_of<T>(m_EntityHandle);
 		}
 
 		template<typename T>
