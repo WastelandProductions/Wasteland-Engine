@@ -220,22 +220,25 @@ namespace Wasteland {
 					tc.Scale = transformComponent["Scale"].as<glm::vec3>();
 				}
 
-				auto cameraComponent = entity["Camera"];
+				auto cameraComponent = entity["CameraComponent"];
 				if (cameraComponent)
 				{
-					// Entities always have transforms
 					auto& cc = deserializedEntity.AddComponent<CameraComponent>();
 
-					auto& cameraProps = cameraComponent["Camera"];
-					cc.Camera.SetProjectionType((SceneCamera::ProjectionType)cameraProps["ProjectionType"].as<int>());
+					auto cameraProps = cameraComponent["Camera"];
 
-					cc.Camera.SetPerspectiveVerticalFOV(cameraProps["PerspectiveFOV"].as<float>());
-					cc.Camera.SetPerspectiveNearClip(cameraProps["PerspectiveNear"].as<float>());
-					cc.Camera.SetPerspectiveFarClip(cameraProps["PerspectiveFar"].as<float>());
+					if (cameraProps)
+					{
+						cc.Camera.SetProjectionType((SceneCamera::ProjectionType)cameraProps["ProjectionType"].as<int>());
 
-					cc.Camera.SetOrthographicSize(cameraProps["OrthographicSize"].as<float>());
-					cc.Camera.SetOrthographicNearClip(cameraProps["OrthographicNear"].as<float>());
-					cc.Camera.SetOrthographicFarClip(cameraProps["OrthographicFar"].as<float>());
+						cc.Camera.SetPerspectiveVerticalFOV(cameraProps["PerspectiveFOV"].as<float>());
+						cc.Camera.SetPerspectiveNearClip(cameraProps["PerspectiveNear"].as<float>());
+						cc.Camera.SetPerspectiveFarClip(cameraProps["PerspectiveFar"].as<float>());
+
+						cc.Camera.SetOrthographicSize(cameraProps["OrthographicSize"].as<float>());
+						cc.Camera.SetOrthographicNearClip(cameraProps["OrthographicNear"].as<float>());
+						cc.Camera.SetOrthographicFarClip(cameraProps["OrthographicFar"].as<float>());
+					}
 
 					cc.Primary = cameraComponent["Primary"].as<bool>();
 					cc.FixedAspectRatio = cameraComponent["FixedAspectRatio"].as<bool>();

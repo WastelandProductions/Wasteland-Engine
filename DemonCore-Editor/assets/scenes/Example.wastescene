@@ -2,9 +2,9 @@ Scene: Untitled
 Entities:
   - Entity: 12837192831273
     TagComponent:
-      Tag: Square
+      Tag: Camera
     TransformComponent:
-      Translation: [0, 0, -12]
+      Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     CameraComponent:
@@ -18,12 +18,12 @@ Entities:
         OrthographicFar: 1
       Primary: true
       FixedAspectRatio: false
-    SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
   - Entity: 12837192831273
     TagComponent:
-      Tag: Camera
+      Tag: Square
     TransformComponent:
       Translation: [0, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
+    SpriteRendererComponent:
+      Color: [1, 1, 1, 1]

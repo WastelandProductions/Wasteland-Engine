@@ -453,12 +453,19 @@ namespace Wasteland {
 		std::string filepath = FileDialogs::OpenFile("Wasteland Scene (*.wastescene)\0*.wastescene\0");
 		if (!filepath.empty())
 		{
-			m_ActiveScene = CreateRef<Scene>();
-			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-			m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+			Ref<Scene> newScene = CreateRef<Scene>();
+			newScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 
-			SceneSerializer serializer(m_ActiveScene);
-			serializer.Deserialize(filepath);
+			m_HoveredEntity = {};
+			// m_SceneHierarchyPanel.SetSelectedEntity({});
+
+			m_SceneHierarchyPanel.SetContext(newScene);
+
+			SceneSerializer serializer(newScene);
+			if (serializer.Deserialize(filepath))
+			{
+				m_ActiveScene = newScene;
+			}
 		}
 	}
 
