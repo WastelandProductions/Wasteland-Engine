@@ -13,13 +13,13 @@ namespace Wasteland {
 			case Wasteland::ShaderDataType::Float2: return GL_FLOAT;
 			case Wasteland::ShaderDataType::Float3: return GL_FLOAT;
 			case Wasteland::ShaderDataType::Float4: return GL_FLOAT;
-			case Wasteland::ShaderDataType::Mat3: return GL_FLOAT;
-			case Wasteland::ShaderDataType::Mat4: return GL_FLOAT;
 			case Wasteland::ShaderDataType::Int: return GL_INT;
 			case Wasteland::ShaderDataType::Int2: return GL_INT;
 			case Wasteland::ShaderDataType::Int3: return GL_INT;
 			case Wasteland::ShaderDataType::Int4: return GL_INT;
 			case Wasteland::ShaderDataType::Bool: return GL_BOOL;
+			case Wasteland::ShaderDataType::Mat3: return GL_FLOAT;
+			case Wasteland::ShaderDataType::Mat4: return GL_FLOAT;
 		}
 		WL_CORE_ASSERT(false, "Unknown ShaderDataType!");
 		return 0;

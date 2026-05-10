@@ -72,6 +72,30 @@ namespace Wasteland {
 			return false;
 		}
 
+		static GLenum WastelandFBTextureFormatToGL(FramebufferTextureFormat format)
+		{
+			switch (format)
+			{
+				case FramebufferTextureFormat::RGBA8: return GL_RGBA8;
+				case FramebufferTextureFormat::RED_INTEGER: return GL_RED_INTEGER;
+			}
+
+			WL_CORE_ASSERT(false, nullptr);
+			return 0;
+		}
+
+		static GLenum GLDataType(FramebufferTextureFormat format)
+		{
+			switch (format)
+			{
+			case FramebufferTextureFormat::RGBA8: return GL_UNSIGNED_BYTE;
+			case FramebufferTextureFormat::RED_INTEGER: return GL_RED_INTEGER;
+			}
+
+			WL_CORE_ASSERT(false, nullptr);
+			return 0;
+		}
+
 	}
 
 	OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferSpecification& spec)
@@ -166,6 +190,11 @@ namespace Wasteland {
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
 		glViewport(0, 0, m_Specification.Width, m_Specification.Height);
+
+		// ClearAttachment<float>(1, )
+
+		int value = -1;
+		glClearTexImage(m_ColorAttachments[1], 0, GL_RED_INTEGER, GL_INT, &value);
 	}
 
 	void OpenGLFramebuffer::Unbind()
@@ -188,6 +217,15 @@ namespace Wasteland {
 		int pixelData;
 		glReadPixels(x, y, 1, 1, GL_RED_INTEGER, GL_INT, &pixelData);
 		return pixelData;
+	}
+
+	void OpenGLFramebuffer::ClearAttachment(uint32_t attachmentIndex, int value)
+	{
+		WL_CORE_ASSERT(attachmentIndex < m_ColorAttachments.size(), nullptr);
+
+		auto& spec = m_ColorAttachmentSpecifications[attachmentIndex];
+		glClearTexImage(m_ColorAttachments[attachmentIndex], 0, 
+			Utils::WastelandFBTextureFormatToGL(spec.TextureFormat), GL_INT, &value);
 	}
 
 }
