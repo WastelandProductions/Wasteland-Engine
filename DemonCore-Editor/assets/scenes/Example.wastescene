@@ -8,4 +8,4 @@ Entities:
       Rotation: [1.57079637, 0, 0]
       Scale: [100, 100, 100]
     SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
+      Color: [0.00392156886, 0.0352941193, 1, 1]
