@@ -6,6 +6,14 @@
 
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui_internal.h>
+#include <cstring>
+
+/* The Microsoft C++ compiler is not-compatible with the C++ standard and needs
+the following definition to disable a security warning on std::strncpy().
+*/
+#ifdef _MSVC_LANG
+#define _CRT_SECURE_NO_WARNINGS
+#endif
 
 namespace Wasteland {
 

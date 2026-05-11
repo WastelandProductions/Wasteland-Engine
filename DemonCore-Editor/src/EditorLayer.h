@@ -2,6 +2,8 @@
 
 #include "Wasteland.h"
 #include "Panels/SceneHierarchyPanel.h"
+#include "Panels/ContentBrowserPanel.h"
+
 #include <Wasteland/Renderer/Texture.h>
 
 #include "Wasteland/Renderer/EditorCamera.h"
@@ -64,6 +66,7 @@ namespace Wasteland {
 
 		// Panels
 		SceneHierarchyPanel m_SceneHierarchyPanel;
+		ContentBrowserPanel m_ContentBrowserPanel;
 	};
 
 }
