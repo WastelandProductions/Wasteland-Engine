@@ -17,6 +17,8 @@
 
 namespace Wasteland {
 
+	extern const std::filesystem::path g_AssetPath;
+
 	static const uint32_t s_MapWidth = 24;
 	static const char* s_MapTiles =
 		"WWWWWWWWWWWWWWWWWWWWWWWW"
@@ -300,6 +302,17 @@ namespace Wasteland {
 			uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
 			ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{0, 1}, ImVec2{1, 0});
 
+			if (ImGui::BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+				{
+					const wchar_t* path = (const wchar_t*)payload->Data;
+					OpenScene(std::filesystem::path(g_AssetPath) / path);
+				}
+
+				ImGui::EndDragDropTarget();
+			}
+
 			auto windowSize = ImGui::GetWindowSize();
 			ImVec2 minBound = ImGui::GetWindowPos();
 			minBound.x += viewportOffset.x;
@@ -465,19 +478,21 @@ namespace Wasteland {
 		std::string filepath = FileDialogs::OpenFile("Wasteland Scene (*.wastescene)\0*.wastescene\0");
 		if (!filepath.empty())
 		{
-			Ref<Scene> newScene = CreateRef<Scene>();
-			newScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			OpenScene(filepath);
+		}
+	}
 
-			m_HoveredEntity = {};
-			// m_SceneHierarchyPanel.SetSelectedEntity({});
+	void EditorLayer::OpenScene(const std::filesystem::path& path)
+	{
+		Ref<Scene> newScene = CreateRef<Scene>();
+		newScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 
-			m_SceneHierarchyPanel.SetContext(newScene);
+		m_SceneHierarchyPanel.SetContext(newScene);
 
-			SceneSerializer serializer(newScene);
-			if (serializer.Deserialize(filepath))
-			{
-				m_ActiveScene = newScene;
-			}
+		SceneSerializer serializer(newScene);
+		if (serializer.Deserialize(path.string()))
+		{
+			m_ActiveScene = newScene;
 		}
 	}
 
