@@ -9,6 +9,8 @@
 #include "SceneCamera.h"
 #include "ScriptableEntity.h"
 
+#include "Wasteland/Renderer/Texture.h"
+
 namespace Wasteland {
 
 	struct TagComponent
@@ -45,6 +47,8 @@ namespace Wasteland {
 	struct SpriteRendererComponent
 	{
 		glm::vec4 Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+		Ref<Texture2D> Texture;
+		float TilingFactor = 1.0f;
 
 		SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent&) = default;
@@ -55,7 +59,7 @@ namespace Wasteland {
 	struct CameraComponent
 	{
 		SceneCamera Camera;
-		bool Primary = true; // TODO: think about moving to scene
+		bool Primary = true; // TODO: think about moving to Scene
 		bool FixedAspectRatio = false;
 
 		CameraComponent() = default;

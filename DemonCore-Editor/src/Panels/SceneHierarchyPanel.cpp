@@ -8,6 +8,9 @@
 #include <imgui/imgui_internal.h>
 #include <cstring>
 
+#include <filesystem>
+#include <Wasteland/Renderer/Texture.h>
+
 /* The Microsoft C++ compiler is not-compatible with the C++ standard and needs
 the following definition to disable a security warning on std::strncpy().
 */
@@ -16,6 +19,8 @@ the following definition to disable a security warning on std::strncpy().
 #endif
 
 namespace Wasteland {
+
+	extern const std::filesystem::path g_AssetPath;
 
 	SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& context)
 	{
@@ -351,6 +356,20 @@ namespace Wasteland {
 			{
 				auto& src = entity.GetComponent<SpriteRendererComponent>();
 				ImGui::ColorEdit4("Color", glm::value_ptr(src.Color));
+				
+				ImGui::Button("Texture", ImVec2(100.0f, 0.0f));
+				if (ImGui::BeginDragDropTarget())
+				{
+					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("CONTENT_BROWSER_ITEM"))
+					{
+						const wchar_t* path = (const wchar_t*)payload->Data;
+						std::filesystem::path texturePath = std::filesystem::path(g_AssetPath) / path;
+						src.Texture = Texture2D::Create(texturePath.string());
+					}
+					ImGui::EndDragDropTarget();
+				}
+
+				ImGui::DragFloat("Tiling Factor", &src.TilingFactor, 0.1f, 0.0f, 100.0f);
 				ImGui::TreePop();
 			}
 
