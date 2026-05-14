@@ -28,6 +28,9 @@
     <Filter Include="src\Wasteland\ImGui">
       <UniqueIdentifier>{294862F8-95A9-3F06-1E17-86B88A7776C5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Wasteland\Math">
+      <UniqueIdentifier>{F8535A4D-E437-1BA3-4D98-15F6399B0525}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Wasteland\Renderer">
       <UniqueIdentifier>{45AAF71C-31A4-206F-1A11-B77F06AA86DB}</UniqueIdentifier>
     </Filter>
@@ -147,10 +150,16 @@
     <ClInclude Include="src\Wasteland\ImGui\ImGuiLayer.h">
       <Filter>src\Wasteland\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Wasteland\Math\Math.h">
+      <Filter>src\Wasteland\Math</Filter>
+    </ClInclude>
     <ClInclude Include="src\Wasteland\Renderer\Buffer.h">
       <Filter>src\Wasteland\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Wasteland\Renderer\Camera.h">
+      <Filter>src\Wasteland\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Wasteland\Renderer\EditorCamera.h">
       <Filter>src\Wasteland\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Wasteland\Renderer\Framebuffer.h">
@@ -1476,8 +1485,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Wasteland\Math\Math.h" />
-    <ClInclude Include="src\Wasteland\Renderer\EditorCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1528,7 +1535,13 @@
     <ClCompile Include="src\Wasteland\ImGui\ImGuiLayer.cpp">
       <Filter>src\Wasteland\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="src\Wasteland\Math\Math.cpp">
+      <Filter>src\Wasteland\Math</Filter>
+    </ClCompile>
     <ClCompile Include="src\Wasteland\Renderer\Buffer.cpp">
+      <Filter>src\Wasteland\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Wasteland\Renderer\EditorCamera.cpp">
       <Filter>src\Wasteland\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Wasteland\Renderer\Framebuffer.cpp">
@@ -1585,7 +1598,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Wasteland\Math\Math.cpp" />
-    <ClCompile Include="src\Wasteland\Renderer\EditorCamera.cpp" />
   </ItemGroup>
 </Project>
