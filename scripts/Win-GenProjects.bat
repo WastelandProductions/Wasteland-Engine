@@ -11,7 +11,7 @@ if %errorlevel% neq 0 (
 
 :: Generate project files for Visual Studio Code (Makefile format)
 echo.
-echo Generating Visual Studio Code workspaces (Makefiles)...
+echo Generating VS Code Compilation Database...
 call vendor\bin\premake\premake5.exe gmake2
 
 popd
