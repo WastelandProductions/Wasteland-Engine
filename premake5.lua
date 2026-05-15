@@ -37,6 +37,8 @@ project "Wasteland"
 	language "C++"
 	cppdialect "C++17"
 
+	debugdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
+
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -129,6 +131,8 @@ project "Sandbox"
 	language "C++"
 	cppdialect "C++17"
 
+	debugdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
+
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -187,6 +191,8 @@ project "DemonCore-Editor"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
+
+	debugdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
