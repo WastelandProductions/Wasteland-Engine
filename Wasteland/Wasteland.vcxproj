@@ -172,6 +172,7 @@
     <ClInclude Include="src\Wasteland\Core\Log.h" />
     <ClInclude Include="src\Wasteland\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\Wasteland\Core\Timestep.h" />
+    <ClInclude Include="src\Wasteland\Core\UUID.h" />
     <ClInclude Include="src\Wasteland\Core\Window.h" />
     <ClInclude Include="src\Wasteland\Debug\Instrumentor.h" />
     <ClInclude Include="src\Wasteland\Events\ApplicationEvent.h" />
@@ -640,6 +641,7 @@
     <ClCompile Include="src\Wasteland\Core\Layer.cpp" />
     <ClCompile Include="src\Wasteland\Core\LayerStack.cpp" />
     <ClCompile Include="src\Wasteland\Core\Log.cpp" />
+    <ClCompile Include="src\Wasteland\Core\UUID.cpp" />
     <ClCompile Include="src\Wasteland\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Wasteland\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Wasteland\Math\Math.cpp" />

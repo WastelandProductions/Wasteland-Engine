@@ -4,6 +4,7 @@
 
 #include "Wasteland/Core/Timestep.h"
 #include "Wasteland/Renderer/EditorCamera.h"
+#include "Wasteland/Core/UUID.h"
 
 namespace Wasteland {
 
@@ -16,6 +17,7 @@ namespace Wasteland {
 		~Scene();
 
 		Entity CreateEntity(const std::string& name = std::string());
+		Entity CreateEntityWithUUID(UUID uuid, const std::string& name = std::string());
 		void DestroyEntity(Entity entity);
 
 		void OnUpdateEditor(Timestep ts, EditorCamera& camera);

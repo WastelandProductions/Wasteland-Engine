@@ -7,11 +7,20 @@
 #include <glm/gtx/quaternion.hpp>
 
 #include "SceneCamera.h"
-#include "ScriptableEntity.h"
 
 #include "Wasteland/Renderer/Texture.h"
 
+#include "Wasteland/Core/UUID.h"
+
 namespace Wasteland {
+
+	struct IDComponent
+	{
+		UUID ID;
+
+		IDComponent() = default;
+		IDComponent(const IDComponent&) = default;
+	};
 
 	struct TagComponent
 	{
@@ -65,6 +74,9 @@ namespace Wasteland {
 		CameraComponent() = default;
 		CameraComponent(const CameraComponent&) = default;
 	};
+
+	// Forward declaration
+	class ScriptableEntity;
 
 	struct NativeScriptComponent
 	{

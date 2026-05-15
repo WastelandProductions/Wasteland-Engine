@@ -129,6 +129,9 @@
     <ClInclude Include="src\Wasteland\Core\Timestep.h">
       <Filter>src\Wasteland\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Wasteland\Core\UUID.h">
+      <Filter>src\Wasteland\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Wasteland\Core\Window.h">
       <Filter>src\Wasteland\Core</Filter>
     </ClInclude>
@@ -1527,6 +1530,9 @@
       <Filter>src\Wasteland\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Wasteland\Core\Log.cpp">
+      <Filter>src\Wasteland\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Wasteland\Core\UUID.cpp">
       <Filter>src\Wasteland\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Wasteland\ImGui\ImGuiBuild.cpp">
