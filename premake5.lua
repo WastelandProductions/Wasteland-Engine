@@ -21,13 +21,14 @@ IncludeDir["stb_image"] = "Wasteland/vendor/stb_image"
 IncludeDir["entt"] = "Wasteland/vendor/entt/single_include"
 IncludeDir["yaml_cpp"] = "Wasteland/vendor/yaml-cpp/include"
 IncludeDir["ImGuizmo"] = "Wasteland/vendor/ImGuizmo"
+IncludeDir["Box2D"] = "Wasteland/vendor/Box2D/include"
 
 group "Dependencies"
 	include "Wasteland/vendor/GLFW"
 	include "Wasteland/vendor/Glad"
 	include "Wasteland/vendor/imgui"
 	include "Wasteland/vendor/yaml-cpp"
-
+	include "Wasteland/vendor/Box2D"
 group ""
 
 project "Wasteland"
@@ -72,7 +73,8 @@ project "Wasteland"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.yaml_cpp}",
-		"%{IncludeDir.ImGuizmo}"
+		"%{IncludeDir.ImGuizmo}",
+		"%{IncludeDir.Box2D}"
 	}
 
 	links 
@@ -81,6 +83,7 @@ project "Wasteland"
 		"Glad",
 		"ImGui",
 		"yaml-cpp",
+		"Box2D",
 		"opengl32.lib"
 	}
 
@@ -142,7 +145,7 @@ project "Sandbox"
 		"Wasteland/src",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
 	}
 
 	links

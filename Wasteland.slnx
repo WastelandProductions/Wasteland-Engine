@@ -12,6 +12,8 @@
   <Project Path="Wasteland\Wasteland.vcxproj" Id="E8DDB8B7-5448-6D2E-9D86-1ED409304B83">
   </Project>
   <Folder Name="/Dependencies/">
+    <Project Path="Wasteland\vendor\Box2D\Box2D.vcxproj" Id="A434E80C-1049-10BE-D9CA-B31D459E0CEF">
+    </Project>
     <Project Path="Wasteland\vendor\Glad\Glad.vcxproj" Id="BDD6857C-A90D-870D-52FA-6C103E10030F">
     </Project>
     <Project Path="Wasteland\vendor\GLFW\GLFW.vcxproj" Id="154B857C-0182-860D-AA6E-6C109684020F">
