@@ -2,18 +2,28 @@ Scene: Untitled
 Entities:
   - Entity: 127481625498776523
     TagComponent:
-      Tag: Ground Plane
+      Tag: Physics Sprite
     TransformComponent:
-      Translation: [0, 0.260265052, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
+      Translation: [0, 2, 0]
+      Rotation: [0, 0, 0.34906584]
+      Scale: [0.5, 0.5, 0.5]
     SpriteRendererComponent:
-      Color: [0.00392156886, 0.0352941193, 1, 1]
+      Color: [1, 1, 1, 1]
+    Rigidbody2DComponent:
+      BodyType: Dynamic
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5
   - Entity: 13034945360324169914
     TagComponent:
       Tag: Camera
     TransformComponent:
-      Translation: [9.53674316e-07, 0, -0.5]
+      Translation: [9.53674316e-07, 0, -4.4000001]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     CameraComponent:
@@ -27,3 +37,22 @@ Entities:
         OrthographicFar: 1
       Primary: true
       FixedAspectRatio: false
+  - Entity: 4438096616177984165
+    TagComponent:
+      Tag: Ground Plane
+    TransformComponent:
+      Translation: [0, -2.5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [13.3000002, 0.5, 1]
+    SpriteRendererComponent:
+      Color: [0.862745106, 0.405997664, 0, 1]
+    Rigidbody2DComponent:
+      BodyType: Static
+      FixedRotation: false
+    BoxCollider2DComponent:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      RestitutionThreshold: 0.5

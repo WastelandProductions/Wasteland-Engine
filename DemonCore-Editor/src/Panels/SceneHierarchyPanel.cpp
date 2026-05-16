@@ -72,16 +72,40 @@ namespace Wasteland {
 
 			if (ImGui::BeginPopup("AddComponent"))
 			{
-				if (ImGui::MenuItem("Camera"))
+				if (!m_SelectionContext.HasComponent<CameraComponent>())
 				{
-					m_SelectionContext.AddComponent<CameraComponent>();
-					ImGui::CloseCurrentPopup();
+					if (ImGui::MenuItem("Camera"))
+					{
+						m_SelectionContext.AddComponent<CameraComponent>();
+						ImGui::CloseCurrentPopup();
+					}
 				}
 
-				if (ImGui::MenuItem("Sprite Renderer"))
+				if (!m_SelectionContext.HasComponent<SpriteRendererComponent>())
 				{
-					m_SelectionContext.AddComponent<SpriteRendererComponent>();
-					ImGui::CloseCurrentPopup();
+					if (ImGui::MenuItem("Sprite Renderer"))
+					{
+						m_SelectionContext.AddComponent<SpriteRendererComponent>();
+						ImGui::CloseCurrentPopup();
+					}
+				}
+
+				if (!m_SelectionContext.HasComponent<Rigidbody2DComponent>())
+				{
+					if (ImGui::MenuItem("Rigidbody 2D"))
+					{
+						m_SelectionContext.AddComponent<Rigidbody2DComponent>();
+						ImGui::CloseCurrentPopup();
+					}
+				}
+
+				if (!m_SelectionContext.HasComponent<BoxCollider2DComponent>())
+				{
+					if (ImGui::MenuItem("Box Collider 2D"))
+					{
+						m_SelectionContext.AddComponent<BoxCollider2DComponent>();
+						ImGui::CloseCurrentPopup();
+					}
 				}
 
 				ImGui::EndPopup();
@@ -375,6 +399,94 @@ namespace Wasteland {
 
 			if (removeComponent)
 				entity.RemoveComponent<SpriteRendererComponent>();
+		}
+
+		if (entity.HasComponent<Rigidbody2DComponent>())
+		{
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4, 4 });
+			bool open = ImGui::TreeNodeEx((void*)typeid(Rigidbody2DComponent).hash_code(), treeNodeFlags, "Rigidbody 2D");
+			ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
+			if (ImGui::Button("+", ImVec2{ 20, 20 }))
+			{
+				ImGui::OpenPopup("ComponentSettings");
+			}
+			ImGui::PopStyleVar();
+
+			bool removeComponent = false;
+			if (ImGui::BeginPopup("ComponentSettings"))
+			{
+				if (ImGui::MenuItem("Remove Component"))
+					removeComponent = true;
+
+				ImGui::EndPopup();
+			}
+
+			if (open)
+			{
+				auto& rigidbody2D = entity.GetComponent<Rigidbody2DComponent>();
+				const char* bodyTypeStrings[] = { "Static", "Dynamic", "Kinematic" };
+				const char* currentBodyTypeString = bodyTypeStrings[(int)rigidbody2D.Type];
+				if (ImGui::BeginCombo("Body Type", currentBodyTypeString))
+				{
+					for (int i = 0; i < 2; i++)
+					{
+						bool isSelected = currentBodyTypeString == bodyTypeStrings[i];
+						if (ImGui::Selectable(bodyTypeStrings[i], isSelected))
+						{
+							currentBodyTypeString = bodyTypeStrings[i];
+							rigidbody2D.Type = (Rigidbody2DComponent::BodyType)i;
+						}
+
+						if (isSelected)
+							ImGui::SetItemDefaultFocus();
+					}
+
+					ImGui::EndCombo();
+				}
+
+				ImGui::Checkbox("Fixed Rotation", &rigidbody2D.FixedRotation);
+				ImGui::TreePop();
+			}
+
+			if (removeComponent)
+				entity.RemoveComponent<Rigidbody2DComponent>();
+		}
+
+		if (entity.HasComponent<BoxCollider2DComponent>())
+		{
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4, 4 });
+			bool open = ImGui::TreeNodeEx((void*)typeid(BoxCollider2DComponent).hash_code(), treeNodeFlags, "Box Collider 2D");
+			ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
+			if (ImGui::Button("+", ImVec2{ 20, 20 }))
+			{
+				ImGui::OpenPopup("ComponentSettings");
+			}
+			ImGui::PopStyleVar();
+
+			bool removeComponent = false;
+			if (ImGui::BeginPopup("ComponentSettings"))
+			{
+				if (ImGui::MenuItem("Remove Component"))
+					removeComponent = true;
+
+				ImGui::EndPopup();
+			}
+
+			if (open)
+			{
+				auto& boxCollider2D = entity.GetComponent<BoxCollider2DComponent>();
+
+				ImGui::DragFloat2("Offset", glm::value_ptr(boxCollider2D.Offset));
+				ImGui::DragFloat2("Size", glm::value_ptr(boxCollider2D.Size));
+				ImGui::DragFloat("Density", &boxCollider2D.Density, 0.01f, 0.0f, 1.0f);
+				ImGui::DragFloat("Friction", &boxCollider2D.Friction, 0.01f, 0.0f, 1.0f);
+				ImGui::DragFloat("Restitution", &boxCollider2D.Restitution, 0.01f, 0.0f, 1.0f);
+				ImGui::DragFloat("Restitution Threshold", &boxCollider2D.RestitutionThreshold, 0.01f, 0.0f);
+				ImGui::TreePop();
+			}
+
+			if (removeComponent)
+				entity.RemoveComponent<BoxCollider2DComponent>();
 		}
 	}
 
