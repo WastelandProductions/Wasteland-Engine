@@ -192,7 +192,7 @@ project "DemonCore-Editor"
 	language "C++"
 	cppdialect "C++17"
 
-	debugdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
+	debugdir ("%{wks.location}/DemonCore-Editor")
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
