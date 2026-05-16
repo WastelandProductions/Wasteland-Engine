@@ -25,7 +25,7 @@ and nor some other Apple platform */
 #error "IOS is not supported!"
 #elif TARGET_OS_MAC == 1
 #define WL_PLATFORM_MACOS
-#error "MacOS is not supported!"
+
 #else
 #error "Unknown Apple platform!"
 #endif
@@ -37,7 +37,7 @@ it has __linux__ defined */
 #error "Android is not supported!"
 #elif defined(__linux__)
 #define WL_PLATFORM_LINUX
-#error "Linux is not supported!"
+
 #else
 /* Unknown compiler/platform */
 #error "Unknown platform!"
@@ -55,13 +55,14 @@ it has __linux__ defined */
 #define WL_API
 #endif
 #else
-#error Wasteland only supports Windows!
+// On non-Windows platforms (Linux, macOS), visibility is handled with compiler attributes if needed
+#define WL_API
 #endif // End of DLL support
 
 #ifdef WL_DEBUG
 #if defined(WL_PLATFORM_WINDOWS)
 #define WL_DEBUGBREAK() __debugbreak()
-#elif defined(WL_PLATFORM_LINUX)
+#elif defined(WL_PLATFORM_LINUX) || defined(WL_PLATFORM_MACOS)
 #include <signal.h>
 #define WL_DEBUGBREAK() raise(SIGTRAP)
 #else

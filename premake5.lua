@@ -85,8 +85,7 @@ project "Wasteland"
 		"Glad",
 		"ImGui",
 		"yaml-cpp",
-		"Box2D",
-		"opengl32.lib"
+		"Box2D"
 	}
 
 	filter "files:vendor/ImGuizmo/**.cpp"
@@ -108,6 +107,50 @@ project "Wasteland"
 			"WL_PLATFORM_WINDOWS",
 			"WL_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
+		}
+
+		links
+		{
+			"opengl32.lib"
+		}
+
+	filter "system:linux"
+		buildoptions
+		{
+			"-fPIC"
+		}
+
+		defines
+		{
+			"WL_PLATFORM_LINUX",
+			"WL_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
+		}
+
+		links
+		{
+			"GL",
+			"pthread"
+		}
+
+	filter "system:macosx"
+		buildoptions
+		{
+			"-fPIC"
+		}
+
+		defines
+		{
+			"WL_PLATFORM_MAC",
+			"WL_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
+		}
+
+		links
+		{
+			"Cocoa.framework",
+			"IOKit.framework",
+			"CoreFoundation.framework"
 		}
 
 	filter "configurations:Debug"
@@ -169,6 +212,28 @@ project "Sandbox"
 		defines
 		{
 			"WL_PLATFORM_WINDOWS"
+		}
+
+	filter "system:linux"
+		buildoptions
+		{
+			"-fPIC"
+		}
+
+		defines
+		{
+			"WL_PLATFORM_LINUX"
+		}
+
+	filter "system:macosx"
+		buildoptions
+		{
+			"-fPIC"
+		}
+
+		defines
+		{
+			"WL_PLATFORM_MAC"
 		}
 
 	filter "configurations:Debug"
@@ -238,6 +303,28 @@ project "DemonCore-Editor"
 		defines
 		{
 			"WL_PLATFORM_WINDOWS"
+		}
+
+	filter "system:linux"
+		buildoptions
+		{
+			"-fPIC"
+		}
+
+		defines
+		{
+			"WL_PLATFORM_LINUX"
+		}
+
+	filter "system:macosx"
+		buildoptions
+		{
+			"-fPIC"
+		}
+
+		defines
+		{
+			"WL_PLATFORM_MACOS"
 		}
 
 	filter "configurations:Debug"
