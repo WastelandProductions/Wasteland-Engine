@@ -1,27 +1,16 @@
 Scene: Untitled
 Entities:
-  - Entity: 11275147619065244
+  - Entity: 127481625498776523
     TagComponent:
-      Tag: Circle
+      Tag: Physics Sprite
     TransformComponent:
-      Translation: [1, -1, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    CircleRendererComponent:
-      Color: [1, 1, 1, 1]
-      Thickness: 0.100000001
-      Fade: 0.00499999989
-  - Entity: 4438096616177984165
-    TagComponent:
-      Tag: Ground Plane
-    TransformComponent:
-      Translation: [0, -2.5, 0]
-      Rotation: [0, 0, 0]
-      Scale: [13.3000002, 0.5, 1]
+      Translation: [0, 2, 0]
+      Rotation: [0, 0, 0.34906584]
+      Scale: [0.5, 0.5, 0.5]
     SpriteRendererComponent:
-      Color: [0.862745106, 0.405997664, 0, 1]
+      Color: [1, 1, 1, 1]
     Rigidbody2DComponent:
-      BodyType: Static
+      BodyType: Dynamic
       FixedRotation: false
     BoxCollider2DComponent:
       Offset: [0, 0]
@@ -48,17 +37,17 @@ Entities:
         OrthographicFar: 1
       Primary: true
       FixedAspectRatio: false
-  - Entity: 127481625498776523
+  - Entity: 4438096616177984165
     TagComponent:
-      Tag: Physics Sprite
+      Tag: Ground Plane
     TransformComponent:
-      Translation: [0, 2, 0]
-      Rotation: [0, 0, 0.34906584]
-      Scale: [0.5, 0.5, 0.5]
+      Translation: [0, -2.5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [13.3000002, 0.5, 1]
     SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
+      Color: [0.862745106, 0.405997664, 0, 1]
     Rigidbody2DComponent:
-      BodyType: Dynamic
+      BodyType: Static
       FixedRotation: false
     BoxCollider2DComponent:
       Offset: [0, 0]
@@ -67,3 +56,14 @@ Entities:
       Friction: 0.5
       Restitution: 0
       RestitutionThreshold: 0.5
+  - Entity: 11275147619065244
+    TagComponent:
+      Tag: Circle
+    TransformComponent:
+      Translation: [1, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CircleRendererComponent:
+      Color: [0.808823526, 0.499567479, 0, 1]
+      Thickness: 0.100000001
+      Fade: 0.00499999989
