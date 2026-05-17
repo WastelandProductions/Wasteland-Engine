@@ -1,5 +1,16 @@
 Scene: Untitled
 Entities:
+  - Entity: 11275147619065244
+    TagComponent:
+      Tag: Circle
+    TransformComponent:
+      Translation: [1, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CircleRendererComponent:
+      Color: [1, 1, 1, 1]
+      Thickness: 0.100000001
+      Fade: 0.00499999989
   - Entity: 4438096616177984165
     TagComponent:
       Tag: Ground Plane
@@ -38,120 +49,6 @@ Entities:
       Primary: true
       FixedAspectRatio: false
   - Entity: 127481625498776523
-    TagComponent:
-      Tag: Physics Sprite
-    TransformComponent:
-      Translation: [0, 2, 0]
-      Rotation: [0, 0, 0.34906584]
-      Scale: [0.5, 0.5, 0.5]
-    SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
-    Rigidbody2DComponent:
-      BodyType: Dynamic
-      FixedRotation: false
-    BoxCollider2DComponent:
-      Offset: [0, 0]
-      Size: [0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0
-      RestitutionThreshold: 0.5
-  - Entity: 2749671760069990475
-    TagComponent:
-      Tag: Physics Sprite
-    TransformComponent:
-      Translation: [0, 2, 0]
-      Rotation: [0, 0, 0.34906584]
-      Scale: [0.5, 0.5, 0.5]
-    SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
-    Rigidbody2DComponent:
-      BodyType: Dynamic
-      FixedRotation: false
-    BoxCollider2DComponent:
-      Offset: [0, 0]
-      Size: [0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0
-      RestitutionThreshold: 0.5
-  - Entity: 11361741235139075814
-    TagComponent:
-      Tag: Physics Sprite
-    TransformComponent:
-      Translation: [0, 2, 0]
-      Rotation: [0, 0, 0.34906584]
-      Scale: [0.5, 0.5, 0.5]
-    SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
-    Rigidbody2DComponent:
-      BodyType: Dynamic
-      FixedRotation: false
-    BoxCollider2DComponent:
-      Offset: [0, 0]
-      Size: [0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0
-      RestitutionThreshold: 0.5
-  - Entity: 16184568219846467400
-    TagComponent:
-      Tag: Physics Sprite
-    TransformComponent:
-      Translation: [0, 2, 0]
-      Rotation: [0, 0, 0.34906584]
-      Scale: [0.5, 0.5, 0.5]
-    SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
-    Rigidbody2DComponent:
-      BodyType: Dynamic
-      FixedRotation: false
-    BoxCollider2DComponent:
-      Offset: [0, 0]
-      Size: [0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0
-      RestitutionThreshold: 0.5
-  - Entity: 12436452694269687402
-    TagComponent:
-      Tag: Physics Sprite
-    TransformComponent:
-      Translation: [0, 2, 0]
-      Rotation: [0, 0, 0.34906584]
-      Scale: [0.5, 0.5, 0.5]
-    SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
-    Rigidbody2DComponent:
-      BodyType: Dynamic
-      FixedRotation: false
-    BoxCollider2DComponent:
-      Offset: [0, 0]
-      Size: [0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0
-      RestitutionThreshold: 0.5
-  - Entity: 4158953046387155443
-    TagComponent:
-      Tag: Physics Sprite
-    TransformComponent:
-      Translation: [0, 2, 0]
-      Rotation: [0, 0, 0.34906584]
-      Scale: [0.5, 0.5, 0.5]
-    SpriteRendererComponent:
-      Color: [1, 1, 1, 1]
-    Rigidbody2DComponent:
-      BodyType: Dynamic
-      FixedRotation: false
-    BoxCollider2DComponent:
-      Offset: [0, 0]
-      Size: [0.5, 0.5]
-      Density: 1
-      Friction: 0.5
-      Restitution: 0
-      RestitutionThreshold: 0.5
-  - Entity: 18116015204281224796
     TagComponent:
       Tag: Physics Sprite
     TransformComponent:

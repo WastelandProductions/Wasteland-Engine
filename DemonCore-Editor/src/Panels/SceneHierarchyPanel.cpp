@@ -92,6 +92,15 @@ namespace Wasteland {
 					}
 				}
 
+				if (!m_SelectionContext.HasComponent<CircleRendererComponent>())
+				{
+					if (ImGui::MenuItem("Circle Renderer"))
+					{
+						m_SelectionContext.AddComponent<CircleRendererComponent>();
+						ImGui::CloseCurrentPopup();
+					}
+				}
+
 				if (!m_SelectionContext.HasComponent<Rigidbody2DComponent>())
 				{
 					if (ImGui::MenuItem("Rigidbody 2D"))
@@ -401,6 +410,39 @@ namespace Wasteland {
 
 			if (removeComponent)
 				entity.RemoveComponent<SpriteRendererComponent>();
+		}
+
+		if (entity.HasComponent<CircleRendererComponent>())
+		{
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4, 4 });
+			bool open = ImGui::TreeNodeEx((void*)typeid(CircleRendererComponent).hash_code(), treeNodeFlags, "Circle Renderer");
+			ImGui::SameLine(ImGui::GetWindowWidth() -25.0f);
+			if (ImGui::Button("+", ImVec2{ 20, 20 }))
+			{
+				ImGui::OpenPopup("ComponentSettings");
+			}
+			ImGui::PopStyleVar();
+
+			bool removeComponent = false;
+			if (ImGui::BeginPopup("ComponentSettings"))
+			{
+				if (ImGui::MenuItem("Remove Component"))
+					removeComponent = true;
+
+				ImGui::EndPopup();
+			}
+
+			if (open)
+			{
+				auto& crc = entity.GetComponent<CircleRendererComponent>();
+				ImGui::ColorEdit4("Color", glm::value_ptr(crc.Color));
+				ImGui::DragFloat("Thickness", &crc.Thickness, 0.025f, 0.0f, 1.0f);
+				ImGui::DragFloat("Fade", &crc.Fade, 0.00025f, 0.0f, 1.0f);
+				ImGui::TreePop();
+			}
+
+			if (removeComponent)
+				entity.RemoveComponent<CircleRendererComponent>();
 		}
 
 		if (entity.HasComponent<Rigidbody2DComponent>())
