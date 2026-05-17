@@ -14,6 +14,7 @@
 #include "box2d/b2_body.h"
 #include "box2d/b2_fixture.h"
 #include "box2d/b2_polygon_shape.h"
+#include "box2d/b2_circle_shape.h"
 
 namespace Wasteland {
 
@@ -89,8 +90,7 @@ namespace Wasteland {
 		CopyComponent<NativeScriptComponent>(srcSceneRegistry, dstSceneRegistry, enttMap);
 		CopyComponent<Rigidbody2DComponent>(srcSceneRegistry, dstSceneRegistry, enttMap);
 		CopyComponent<BoxCollider2DComponent>(srcSceneRegistry, dstSceneRegistry, enttMap);
-
-		newScene->OnViewportResize(newScene->m_ViewportWidth, newScene->m_ViewportHeight);
+		CopyComponent<CircleCollider2DComponent>(srcSceneRegistry, dstSceneRegistry, enttMap);
 
 		return newScene;
     }
@@ -148,6 +148,23 @@ namespace Wasteland {
 				fixtureDef.friction = bc2d.Friction;
 				fixtureDef.restitution = bc2d.Restitution;
 				fixtureDef.restitutionThreshold = bc2d.RestitutionThreshold;
+				body->CreateFixture(&fixtureDef);
+			}
+
+			if (entity.HasComponent<CircleCollider2DComponent>())
+			{
+				auto& cc2d = entity.GetComponent<CircleCollider2DComponent>();
+
+				b2CircleShape circleShape;
+				circleShape.m_p.Set(cc2d.Offset.x, cc2d.Offset.y);
+				circleShape.m_radius = transform.Scale.x * cc2d.Radius;
+
+				b2FixtureDef fixtureDef;
+				fixtureDef.shape = &circleShape;
+				fixtureDef.density = cc2d.Density;
+				fixtureDef.friction = cc2d.Friction;
+				fixtureDef.restitution = cc2d.Restitution;
+				fixtureDef.restitutionThreshold = cc2d.RestitutionThreshold;
 				body->CreateFixture(&fixtureDef);
 			}
 		}
@@ -259,7 +276,7 @@ namespace Wasteland {
 				auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
 				Renderer2D::DrawSprite(transform.GetTransform(), sprite, (int)entity);
-				Renderer2D::DrawRect(transform.Translation, transform.Scale, glm::vec4(1.0f), (int)entity);
+				// Renderer2D::DrawRect(transform.Translation, transform.Scale, glm::vec4(1.0f), (int)entity);
 			}
 		}
 
@@ -274,8 +291,8 @@ namespace Wasteland {
 			}
 		}
 
-		Renderer2D::DrawLine(glm::vec3(2.0f), glm::vec3(5.0f), glm::vec4(1.0f, 0.0f, 1.0f, 1.0f));
-		Renderer2D::DrawRect(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		// Renderer2D::DrawLine(glm::vec3(2.0f), glm::vec3(5.0f), glm::vec4(1.0f, 0.0f, 1.0f, 1.0f));
+		// Renderer2D::DrawRect(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
 		Renderer2D::EndScene();
 	}
@@ -307,6 +324,7 @@ namespace Wasteland {
 		CopyComponentIfExists<NativeScriptComponent>(newEntity, entity);
 		CopyComponentIfExists<Rigidbody2DComponent>(newEntity, entity);
 		CopyComponentIfExists<BoxCollider2DComponent>(newEntity, entity);
+		CopyComponentIfExists<CircleCollider2DComponent>(newEntity, entity);
     }
 
     Entity Scene::GetPrimaryCameraEntity()
@@ -319,6 +337,11 @@ namespace Wasteland {
 				return Entity{ entity, this };
 		}
 		return {};
+	}
+
+	bool Scene::IsEntityValid(Entity entity) const
+	{
+		return m_Registry.valid(entity);
 	}
 
 	template<typename T>
@@ -377,6 +400,12 @@ namespace Wasteland {
 
 	template<>
 	void Scene::OnComponentAdded<BoxCollider2DComponent>(Entity entity, BoxCollider2DComponent& component)
+	{
+
+	}
+
+	template<>
+	void Scene::OnComponentAdded<CircleCollider2DComponent>(Entity entity, CircleCollider2DComponent& component)
 	{
 
 	}

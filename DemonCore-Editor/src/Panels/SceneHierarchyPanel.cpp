@@ -30,6 +30,7 @@ namespace Wasteland {
 	void SceneHierarchyPanel::SetContext(const Ref<Scene>& context)
 	{
 		m_Context = context;
+		m_SelectionContext = {};
 	}
 
 	void SceneHierarchyPanel::OnImGuiRender()
@@ -38,7 +39,7 @@ namespace Wasteland {
 
 		if (m_Context)
 		{
-			m_Context->m_Registry.view<TransformComponent>().each([&](entt::entity entityID, auto& transform)
+			m_Context->m_Registry.view<TransformComponent, TagComponent>().each([&](entt::entity entityID, auto& transform, auto& tag)
 				{
 					Entity entity{ entityID, m_Context.get() };
 					DrawEntityNode(entity);
@@ -65,6 +66,12 @@ namespace Wasteland {
 		ImGui::End();
 
 		ImGui::Begin("Properties");
+		if (m_SelectionContext)
+		{
+			if (!m_Context || !m_Context->m_Registry.valid(m_SelectionContext))
+				m_SelectionContext = {};
+		}
+
 		if (m_SelectionContext)
 		{
 			DrawComponents(m_SelectionContext);
@@ -115,6 +122,15 @@ namespace Wasteland {
 					if (ImGui::MenuItem("Box Collider 2D"))
 					{
 						m_SelectionContext.AddComponent<BoxCollider2DComponent>();
+						ImGui::CloseCurrentPopup();
+					}
+				}
+
+				if (!m_SelectionContext.HasComponent<CircleCollider2DComponent>())
+				{
+					if (ImGui::MenuItem("Circle Collider 2D"))
+					{
+						m_SelectionContext.AddComponent<CircleCollider2DComponent>();
 						ImGui::CloseCurrentPopup();
 					}
 				}
@@ -531,6 +547,43 @@ namespace Wasteland {
 
 			if (removeComponent)
 				entity.RemoveComponent<BoxCollider2DComponent>();
+		}
+
+		if (entity.HasComponent<CircleCollider2DComponent>())
+		{
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4, 4 });
+			bool open = ImGui::TreeNodeEx((void*)typeid(CircleCollider2DComponent).hash_code(), treeNodeFlags, "Circle Collider 2D");
+			ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
+			if (ImGui::Button("+", ImVec2{ 20, 20 }))
+			{
+				ImGui::OpenPopup("ComponentSettings");
+			}
+			ImGui::PopStyleVar();
+
+			bool removeComponent = false;
+			if (ImGui::BeginPopup("ComponentSettings"))
+			{
+				if (ImGui::MenuItem("Remove Component"))
+					removeComponent = true;
+
+				ImGui::EndPopup();
+			}
+
+			if (open)
+			{
+				auto& circleCollider2D = entity.GetComponent<CircleCollider2DComponent>();
+
+				ImGui::DragFloat2("Offset", glm::value_ptr(circleCollider2D.Offset));
+				ImGui::DragFloat("Radius", &circleCollider2D.Radius, 0.01f, 0.0f, 1.0f);
+				ImGui::DragFloat("Density", &circleCollider2D.Density, 0.01f, 0.0f, 1.0f);
+				ImGui::DragFloat("Friction", &circleCollider2D.Friction, 0.01f, 0.0f, 1.0f);
+				ImGui::DragFloat("Restitution", &circleCollider2D.Restitution, 0.01f, 0.0f, 1.0f);
+				ImGui::DragFloat("Restitution Threshold", &circleCollider2D.RestitutionThreshold, 0.01f, 0.0f);
+				ImGui::TreePop();
+			}
+
+			if (removeComponent)
+				entity.RemoveComponent<CircleCollider2DComponent>();
 		}
 	}
 

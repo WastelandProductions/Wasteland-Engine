@@ -45,11 +45,11 @@ namespace Wasteland {
 
 		glm::mat4 GetTransform() const
 		{
+			glm::mat4 translation = glm::translate(glm::mat4(1.0f), Translation);
 			glm::mat4 rotation = glm::toMat4(glm::quat(Rotation));
+			glm::mat4 scale = glm::scale(glm::mat4(1.0f), Scale);
 
-			return glm::translate(glm::mat4(1.0f), Translation)
-				* rotation
-				* glm::scale(glm::mat4(1.0f), Scale);
+			return translation * rotation * scale;
 		}
 	};
 
@@ -134,6 +134,24 @@ namespace Wasteland {
 
 		BoxCollider2DComponent() = default;
 		BoxCollider2DComponent(const BoxCollider2DComponent& other) = default;
+	};
+
+	struct CircleCollider2DComponent
+	{
+		glm::vec2 Offset = { 0.0f, 0.0f };
+		float Radius = 0.5f;
+
+		// TODO: move into physics material in the future maybe
+		float Density = 1.0f;
+		float Friction = 0.5f;
+		float Restitution = 0.0f;
+		float RestitutionThreshold = 0.5f;
+		
+		// Storage for runtime
+		void* RuntimeFixture = nullptr;
+
+		CircleCollider2DComponent() = default;
+		CircleCollider2DComponent(const CircleCollider2DComponent& other) = default;
 	};
 
 }
