@@ -36,30 +36,32 @@ namespace Wasteland {
 	{
 		ImGui::Begin("Scene Hierarchy");
 
-		m_Context->m_Registry.view<TransformComponent>().each([&](entt::entity entityID, auto& transform)
-			{
-				Entity entity{ entityID, m_Context.get() };
-				DrawEntityNode(entity);
-			});
-
-		if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
-			m_SelectionContext = {};
-
-		// Right-click on blank space
-		if (!ImGui::IsAnyItemHovered() && ImGui::IsWindowHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Right))
+		if (m_Context)
 		{
-			ImGui::OpenPopup("HierarchyContextWindow");
-		}
+			m_Context->m_Registry.view<TransformComponent>().each([&](entt::entity entityID, auto& transform)
+				{
+					Entity entity{ entityID, m_Context.get() };
+					DrawEntityNode(entity);
+				});
 
-		if (ImGui::BeginPopup("HierarchyContextWindow"))
-		{
-			if (ImGui::MenuItem("Create Empty Entity"))
+			if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
+				m_SelectionContext = {};
+
+			// Right-click on blank space
+			if (!ImGui::IsAnyItemHovered() && ImGui::IsWindowHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Right))
 			{
-				m_Context->CreateEntity("Empty Entity");
+				ImGui::OpenPopup("HierarchyContextWindow");
 			}
-			ImGui::EndPopup();
+
+			if (ImGui::BeginPopup("HierarchyContextWindow"))
+			{
+				if (ImGui::MenuItem("Create Empty Entity"))
+				{
+					m_Context->CreateEntity("Empty Entity");
+				}
+				ImGui::EndPopup();
+			}
 		}
-			
 		ImGui::End();
 
 		ImGui::Begin("Properties");

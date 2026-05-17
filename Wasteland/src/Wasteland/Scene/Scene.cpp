@@ -38,7 +38,61 @@ namespace Wasteland {
 	{
 	}
 
-	Entity Scene::CreateEntity(const std::string& name)
+	template<typename T>
+	static void CopyComponent(entt::registry& dst, entt::registry& src, const std::unordered_map<UUID, entt::entity>& enttMap)
+	{
+		auto view = src.view<T>();
+		for (auto e : view)
+		{
+			UUID uuid = src.get<IDComponent>(e).ID;
+			WL_CORE_ASSERT(enttMap.find(uuid) != enttMap.end(), nullptr);
+			entt::entity dstEnttID = enttMap.at(uuid);
+
+			auto& component = src.get<T>(e);
+			dst.emplace_or_replace<T>(dstEnttID, component);
+		}
+	}
+
+	template<typename T>
+	static void CopyComponentIfExists(Entity dst, Entity src)
+	{
+		if (src.HasComponent<T>())
+		    dst.AddOrReplaceComponent<T>(src.GetComponent<T>());
+	}
+
+    Ref<Scene> Scene::Copy(Ref<Scene> other)
+    {
+        Ref<Scene> newScene = CreateRef<Scene>();
+
+		newScene->m_ViewportWidth = other->m_ViewportWidth;
+		newScene->m_ViewportHeight = other->m_ViewportHeight;
+
+		auto& srcSceneRegistry = other->m_Registry;
+		auto& dstSceneRegistry = newScene->m_Registry;
+		std::unordered_map<UUID, entt::entity> enttMap;
+
+		// Create entities in new scene
+		auto idView = srcSceneRegistry.view<IDComponent>();
+		for (auto e : idView)
+		{
+			UUID uuid = srcSceneRegistry.get<IDComponent>(e).ID;
+			const auto& name = srcSceneRegistry.get<TagComponent>(e).Tag;
+			Entity newEntity = newScene->CreateEntityWithUUID(uuid, name);
+			enttMap[uuid] = (entt::entity)newEntity;
+		}
+
+		// Copy components (except IDComponent and TagComponent)
+		CopyComponent<TransformComponent>(srcSceneRegistry, dstSceneRegistry, enttMap);
+		CopyComponent<SpriteRendererComponent>(srcSceneRegistry, dstSceneRegistry, enttMap);
+		CopyComponent<CameraComponent>(srcSceneRegistry, dstSceneRegistry, enttMap);
+		CopyComponent<NativeScriptComponent>(srcSceneRegistry, dstSceneRegistry, enttMap);
+		CopyComponent<Rigidbody2DComponent>(srcSceneRegistry, dstSceneRegistry, enttMap);
+		CopyComponent<BoxCollider2DComponent>(srcSceneRegistry, dstSceneRegistry, enttMap);
+
+		return newScene;
+    }
+
+    Entity Scene::CreateEntity(const std::string& name)
 	{
 		return CreateEntityWithUUID(UUID(), name);
 	}
@@ -206,7 +260,20 @@ namespace Wasteland {
 		}
 	}
 
-	Entity Scene::GetPrimaryCameraEntity()
+    void Scene::DuplicateEntity(Entity entity)
+    {
+		std::string name = entity.GetName();
+		Entity newEntity = CreateEntity(name);
+
+		CopyComponentIfExists<TransformComponent>(newEntity, entity);
+		CopyComponentIfExists<CameraComponent>(newEntity, entity);
+		CopyComponentIfExists<SpriteRendererComponent>(newEntity, entity);
+		CopyComponentIfExists<NativeScriptComponent>(newEntity, entity);
+		CopyComponentIfExists<Rigidbody2DComponent>(newEntity, entity);
+		CopyComponentIfExists<BoxCollider2DComponent>(newEntity, entity);
+    }
+
+    Entity Scene::GetPrimaryCameraEntity()
 	{
 		auto view = m_Registry.view<CameraComponent>();
 		for (auto entity : view)
