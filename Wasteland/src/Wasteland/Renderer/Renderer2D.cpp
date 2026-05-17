@@ -197,6 +197,12 @@ namespace Wasteland {
 		s_Data.QuadShader->Bind();
 		s_Data.QuadShader->SetMat4("u_ViewProjection", viewProj);
 
+		s_Data.CircleShader->Bind();
+		s_Data.CircleShader->SetMat4("u_ViewProjection", viewProj);
+
+		s_Data.LineShader->Bind();
+		s_Data.LineShader->SetMat4("u_ViewProjection", viewProj);
+
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
 
@@ -217,6 +223,12 @@ namespace Wasteland {
 
 		s_Data.QuadShader->Bind();
 		s_Data.QuadShader->SetMat4("u_ViewProjection", viewProj);
+
+		s_Data.CircleShader->Bind();
+		s_Data.CircleShader->SetMat4("u_ViewProjection", viewProj);
+
+		s_Data.LineShader->Bind();
+		s_Data.LineShader->SetMat4("u_ViewProjection", viewProj);
 
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;

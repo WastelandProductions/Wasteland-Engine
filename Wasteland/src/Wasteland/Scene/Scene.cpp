@@ -234,8 +234,6 @@ namespace Wasteland {
 
 			// Draw circles
 			{
-				Renderer2D::BeginScene(mainCamera->GetProjection(), cameraTransform);
-
 				auto view = m_Registry.view<TransformComponent, CircleRendererComponent>();
 				for (auto entity : view)
 				{
