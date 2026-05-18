@@ -52,7 +52,7 @@ namespace Wasteland {
 		Ref<Framebuffer> m_Framebuffer;
 
 		Ref<Scene> m_ActiveScene;
-		Ref<Scene> m_EditorScene, m_RuntimeScene;
+		Ref<Scene> m_EditorScene;
 		std::filesystem::path m_EditorScenePath;
 		Entity m_SquareEntity;
 		Entity m_CameraEntity;

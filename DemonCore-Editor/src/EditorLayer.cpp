@@ -159,8 +159,10 @@ namespace Wasteland {
 			{
 				if (m_ViewportFocused)
 				{
-					m_EditorCamera.OnUpdate(ts);
+					m_CameraController.OnUpdate(ts);
 				}
+
+				m_EditorCamera.OnUpdate(ts);
 
 				m_ActiveScene->OnUpdateEditor(ts, m_EditorCamera);
 				break;
@@ -655,8 +657,7 @@ namespace Wasteland {
 	{
 		m_SceneState = SceneState::Play;
     
-		m_RuntimeScene = Scene::Copy(m_EditorScene);
-		m_ActiveScene = m_RuntimeScene;
+		m_ActiveScene = Scene::Copy(m_EditorScene);
 		m_ActiveScene->OnRuntimeStart();
 		
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
@@ -667,8 +668,7 @@ namespace Wasteland {
 		m_SceneState = SceneState::Edit;
     
 		m_ActiveScene->OnRuntimeStop();
-		m_ActiveScene = m_EditorScene;  // Always go back to original
-		m_RuntimeScene = nullptr;
+		m_ActiveScene = m_EditorScene;
 		
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
 	}
