@@ -83,6 +83,26 @@ namespace Wasteland {
 		}
 	}
 
+	template<>
+	static void CopyComponent<CameraComponent>(entt::registry& dst, entt::registry& src, const std::unordered_map<UUID, entt::entity>& enttMap)
+	{
+		auto view = src.view<CameraComponent>();
+		for (auto e : view)
+		{
+			if (!src.valid(e) || !src.all_of<IDComponent>(e)) continue;
+
+			UUID uuid = src.get<IDComponent>(e).ID;
+			auto it = enttMap.find(uuid);
+			if (it == enttMap.end()) continue;
+
+			entt::entity dstEnttID = it->second;
+			auto& srcComponent = src.get<CameraComponent>(e);
+			
+			// Copy the component over
+			auto& dstComponent = dst.emplace_or_replace<CameraComponent>(dstEnttID, srcComponent);
+		}
+	}
+
 	template<typename T>
 	static void CopyComponentIfExists(Entity dst, Entity src)
 	{
@@ -121,6 +141,21 @@ namespace Wasteland {
 		CopyComponent<CircleCollider2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 
 		CopyComponent<NativeScriptComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+
+		{
+			auto view = dstSceneRegistry.view<CameraComponent>();
+			for (auto entity : view)
+			{
+				auto& cameraComponent = view.get<CameraComponent>(entity);
+				if (!cameraComponent.FixedAspectRatio)
+				{
+					// Set it to an alternate temporary size first to clear dirty flags
+					cameraComponent.Camera.SetViewportSize(100, 100); 
+					// Restore its actual matrix bounds
+					cameraComponent.Camera.SetViewportSize(newScene->m_ViewportWidth, newScene->m_ViewportHeight);
+				}
+			}
+		}
 
 		return newScene;
     }
