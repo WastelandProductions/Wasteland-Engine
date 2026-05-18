@@ -98,8 +98,15 @@ namespace Wasteland {
 			entt::entity dstEnttID = it->second;
 			auto& srcComponent = src.get<CameraComponent>(e);
 			
-			// Copy the component over
-			auto& dstComponent = dst.emplace_or_replace<CameraComponent>(dstEnttID, srcComponent);
+			// Force create a completely fresh, brand new camera component container
+			auto& dstComponent = dst.emplace_or_replace<CameraComponent>(dstEnttID);
+			
+			// Manually copy individual properties to trigger any internal setter functions properly
+			dstComponent.Primary = srcComponent.Primary;
+			dstComponent.FixedAspectRatio = srcComponent.FixedAspectRatio;
+			
+			// Copy standard camera configuration details (adjust these names if your class names vary)
+			dstComponent.Camera = srcComponent.Camera; 
 		}
 	}
 
