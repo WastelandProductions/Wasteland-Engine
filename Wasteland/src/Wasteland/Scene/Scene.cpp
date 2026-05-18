@@ -45,12 +45,41 @@ namespace Wasteland {
 		auto view = src.view<T>();
 		for (auto e : view)
 		{
-			UUID uuid = src.get<IDComponent>(e).ID;
-			WL_CORE_ASSERT(enttMap.find(uuid) != enttMap.end(), nullptr);
-			entt::entity dstEnttID = enttMap.at(uuid);
+			if (!src.valid(e) || !src.all_of<IDComponent>(e)) continue;
 
+			UUID uuid = src.get<IDComponent>(e).ID;
+			auto it = enttMap.find(uuid);
+			if (it == enttMap.end()) continue;
+
+			entt::entity dstEnttID = it->second;
 			auto& component = src.get<T>(e);
+			
 			dst.emplace_or_replace<T>(dstEnttID, component);
+		}
+	}
+
+	template<>
+	static void CopyComponent<NativeScriptComponent>(entt::registry& dst, entt::registry& src, const std::unordered_map<UUID, entt::entity>& enttMap)
+	{
+		auto view = src.view<NativeScriptComponent>();
+		for (auto e : view)
+		{
+			if (!src.valid(e) || !src.all_of<IDComponent>(e)) continue;
+
+			UUID uuid = src.get<IDComponent>(e).ID;
+			auto it = enttMap.find(uuid);
+			if (it == enttMap.end()) continue;
+
+			entt::entity dstEnttID = it->second;
+			auto& srcComponent = src.get<NativeScriptComponent>(e);
+			
+			// Emplace a clean script component container
+			auto& dstComponent = dst.emplace_or_replace<NativeScriptComponent>(dstEnttID);
+			
+			// Explicitly copy only the function pointers, keeping Instance safely null
+			dstComponent.InstantiateScript = srcComponent.InstantiateScript;
+			dstComponent.DestroyScript = srcComponent.DestroyScript;
+			dstComponent.Instance = nullptr; 
 		}
 	}
 
