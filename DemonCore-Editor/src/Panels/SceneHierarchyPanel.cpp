@@ -108,6 +108,15 @@ namespace Wasteland {
 					}
 				}
 
+				if (!m_SelectionContext.HasComponent<CubeRendererComponent>())
+				{
+					if (ImGui::MenuItem("Cube Renderer"))
+					{
+						m_SelectionContext.AddComponent<CubeRendererComponent>();
+						ImGui::CloseCurrentPopup();
+					}
+				}
+
 				if (!m_SelectionContext.HasComponent<Rigidbody2DComponent>())
 				{
 					if (ImGui::MenuItem("Rigidbody 2D"))
@@ -459,6 +468,38 @@ namespace Wasteland {
 
 			if (removeComponent)
 				entity.RemoveComponent<CircleRendererComponent>();
+		}
+
+		if (entity.HasComponent<CubeRendererComponent>())
+		{
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4, 4 });
+			bool open = ImGui::TreeNodeEx((void*)typeid(CubeRendererComponent).hash_code(), treeNodeFlags, "Cube Renderer");
+			ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
+			if (ImGui::Button("+", ImVec2{ 20, 20 }))
+			{
+				ImGui::OpenPopup("ComponentSettings");
+			}
+			ImGui::PopStyleVar();
+
+			bool removeComponent = false;
+			if (ImGui::BeginPopup("ComponentSettings"))
+			{
+				if (ImGui::MenuItem("Remove Component"))
+					removeComponent = true;
+
+				ImGui::EndPopup();
+			}
+
+			if (open)
+			{
+				auto& crc = entity.GetComponent<CubeRendererComponent>();
+				ImGui::ColorEdit4("Color", glm::value_ptr(crc.Color));
+				ImGui::DragInt("Texture Index", &crc.TextureIndex);
+				ImGui::TreePop();
+			}
+
+			if (removeComponent)
+				entity.RemoveComponent<CubeRendererComponent>();
 		}
 
 		if (entity.HasComponent<Rigidbody2DComponent>())

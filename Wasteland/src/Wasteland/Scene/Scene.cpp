@@ -3,6 +3,7 @@
 
 #include "Components.h"
 #include "Wasteland/Renderer/Renderer2D.h"
+#include "Wasteland/Renderer/Renderer3D.h"
 
 #include <glm/glm.hpp>
 
@@ -142,6 +143,7 @@ namespace Wasteland {
 		CopyComponent<TransformComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<SpriteRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<CircleRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		CopyComponent<CubeRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<CameraComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<Rigidbody2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<BoxCollider2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
@@ -333,6 +335,21 @@ namespace Wasteland {
 			}
 
 			Renderer2D::EndScene();
+
+			Renderer3D::BeginScene(mainCamera->GetProjection(), cameraTransform);
+
+			// Render 3D
+			{
+				auto cubeView = m_Registry.view<TransformComponent, CubeRendererComponent>();
+				for (auto entity : cubeView) {
+					auto [transform, cube] = cubeView.get<TransformComponent, CubeRendererComponent>(entity);
+					
+					// Pass the 3D entity data to the new batch renderer
+					Renderer3D::DrawCube(transform.GetTransform(), cube.Color, cube.TextureIndex);
+				}
+			}
+
+			Renderer3D::EndScene();
 		}
 	}
 
@@ -392,6 +409,7 @@ namespace Wasteland {
 		CopyComponentIfExists<TransformComponent>(newEntity, entity);
 		CopyComponentIfExists<SpriteRendererComponent>(newEntity, entity);
 		CopyComponentIfExists<CircleRendererComponent>(newEntity, entity);
+		CopyComponentIfExists<CubeRendererComponent>(newEntity, entity);
 		CopyComponentIfExists<CameraComponent>(newEntity, entity);
 		CopyComponentIfExists<Rigidbody2DComponent>(newEntity, entity);
 		CopyComponentIfExists<BoxCollider2DComponent>(newEntity, entity);
@@ -455,6 +473,12 @@ namespace Wasteland {
 
 	template<>
 	void Scene::OnComponentAdded<CircleRendererComponent>(Entity entity, CircleRendererComponent& component)
+	{
+
+	}
+
+	template<>
+	void Scene::OnComponentAdded<CubeRendererComponent>(Entity entity, CubeRendererComponent& component)
 	{
 
 	}

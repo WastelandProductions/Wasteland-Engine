@@ -5,6 +5,18 @@
 
 namespace Wasteland {
 
+    struct Vertex3D 
+    {
+        glm::vec3 position;
+        glm::vec4 color;
+        glm::vec2 texCoords;
+        float texIndex;
+        glm::vec3 normal;
+
+        // Editor-only
+        int EntityID;
+    };
+
     void Renderer3D::Init()
     {
         WL_PROFILE_FUNCTION();
@@ -32,6 +44,14 @@ namespace Wasteland {
     void Renderer3D::EndScene()
     {
         WL_PROFILE_FUNCTION();
+    }
+
+    void Renderer3D::DrawCube(const glm::vec3 &position, const glm::vec3 &size, const glm::vec4 &color)
+    {
+    }
+
+    void Renderer3D::DrawCube(const glm::mat4 &transform, const glm::vec4 &color, int textureIndex)
+    {
     }
 
     void Renderer3D::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)

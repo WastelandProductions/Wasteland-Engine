@@ -218,6 +218,18 @@ namespace Wasteland {
 			out << YAML::EndMap; // CircleRendererComponent
 		}
 
+		if (entity.HasComponent<CubeRendererComponent>())
+		{
+			out << YAML::Key << "CubeRendererComponent";
+			out << YAML::BeginMap; // CubeRendererComponent
+
+			auto& cubeRendererComponent = entity.GetComponent<CubeRendererComponent>();
+			out << YAML::Key << "Color" << YAML::Value << cubeRendererComponent.Color;
+			out << YAML::Key << "TextureIndex" << YAML::Value << cubeRendererComponent.TextureIndex;
+
+			out << YAML::EndMap; // CubeRendererComponent
+		}
+
 		if (entity.HasComponent<Rigidbody2DComponent>())
 		{
 			out << YAML::Key << "Rigidbody2DComponent";
@@ -371,6 +383,15 @@ namespace Wasteland {
 					crc.Color = circleRendererComponent["Color"].as<glm::vec4>();
 					crc.Thickness = circleRendererComponent["Thickness"].as<float>();
 					crc.Fade = circleRendererComponent["Fade"].as<float>();
+				}
+
+				auto cubeRendererComponent = entity["CubeRendererComponent"];
+				if (cubeRendererComponent)
+				{
+					// Entities always have transforms
+					auto& crc = deserializedEntity.AddComponent<CubeRendererComponent>();
+					crc.Color = cubeRendererComponent["Color"].as<glm::vec4>();
+					crc.TextureIndex = cubeRendererComponent["TextureIndex"].as<int>();
 				}
 
 				auto rigidbody2DComponent = entity["Rigidbody2DComponent"];

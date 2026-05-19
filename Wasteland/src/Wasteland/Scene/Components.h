@@ -75,6 +75,12 @@ namespace Wasteland {
 		CircleRendererComponent(const CircleRendererComponent&) = default;
 	};
 
+	struct CubeRendererComponent 
+	{
+		glm::vec4 Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+		int TextureIndex = 0; 
+	};
+
 	struct CameraComponent
 	{
 		SceneCamera Camera;
