@@ -3,6 +3,7 @@
 
 #include <Platform/OpenGL/OpenGLShader.h>
 #include "Renderer2D.h"
+#include "Renderer3D.h"
 
 namespace Wasteland {
 
@@ -14,6 +15,7 @@ namespace Wasteland {
 
 		RenderCommand::Init();
 		Renderer2D::Init();
+		Renderer3D::Init();
 	}
 
 	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
@@ -28,6 +30,11 @@ namespace Wasteland {
 
 	void Renderer::EndScene()
 	{
+	}
+
+	void Renderer::SetViewProjection(const glm::mat4& viewProj)
+	{
+		m_SceneData->ViewProjectionMatrix = viewProj;
 	}
 
 	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
