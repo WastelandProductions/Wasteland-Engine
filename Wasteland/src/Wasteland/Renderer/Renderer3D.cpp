@@ -54,6 +54,14 @@ namespace Wasteland {
     {
     }
 
+    void Renderer3D::DrawSphere(const glm::vec3 &position, float radius, const glm::vec4 &color)
+    {
+    }
+
+    void Renderer3D::DrawSphere(const glm::mat4 &transform, const glm::vec4 &color, float radius, int sectors, int stacks, int textureIndex)
+    {
+    }
+
     void Renderer3D::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
     {
         WL_PROFILE_FUNCTION();

@@ -144,6 +144,7 @@ namespace Wasteland {
 		CopyComponent<SpriteRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<CircleRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<CubeRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
+		CopyComponent<SphereRendererComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<CameraComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<Rigidbody2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
 		CopyComponent<BoxCollider2DComponent>(dstSceneRegistry, srcSceneRegistry, enttMap);
@@ -336,9 +337,10 @@ namespace Wasteland {
 
 			Renderer2D::EndScene();
 
+			// Render 3D
 			Renderer3D::BeginScene(mainCamera->GetProjection(), cameraTransform);
 
-			// Render 3D
+			// Draw Cubes
 			{
 				auto cubeView = m_Registry.view<TransformComponent, CubeRendererComponent>();
 				for (auto entity : cubeView) {
@@ -349,12 +351,29 @@ namespace Wasteland {
 				}
 			}
 
+			// Draw Spheres
+			{
+				auto sphereView = m_Registry.view<TransformComponent, SphereRendererComponent>();
+				for (auto entity : sphereView) {
+					auto [transform, sphere] = sphereView.get<TransformComponent, SphereRendererComponent>(entity);
+					Renderer3D::DrawSphere(
+						transform.GetTransform(), 
+						sphere.Color, 
+						sphere.Radius, 
+						sphere.Sectors, 
+						sphere.Stacks, 
+						sphere.TextureIndex
+					);
+				}
+			}
+
 			Renderer3D::EndScene();
 		}
 	}
 
 	void Scene::OnUpdateEditor(Timestep ts, EditorCamera& camera)
 	{
+		// Render 2D
 		Renderer2D::BeginScene(camera);
 
 		// Draw sprites
@@ -384,6 +403,38 @@ namespace Wasteland {
 		// Renderer2D::DrawRect(glm::vec3(0.0f), glm::vec3(1.0f), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
 		Renderer2D::EndScene();
+
+		// Render 3D
+		Renderer3D::BeginScene(camera);
+
+		// Draw Cubes
+		{
+			auto cubeView = m_Registry.view<TransformComponent, CubeRendererComponent>();
+			for (auto entity : cubeView) {
+				auto [transform, cube] = cubeView.get<TransformComponent, CubeRendererComponent>(entity);
+				
+				// Pass the 3D entity data to the new batch renderer
+				Renderer3D::DrawCube(transform.GetTransform(), cube.Color, cube.TextureIndex);
+			}
+		}
+
+		// Draw Spheres
+		{
+			auto sphereView = m_Registry.view<TransformComponent, SphereRendererComponent>();
+			for (auto entity : sphereView) {
+				auto [transform, sphere] = sphereView.get<TransformComponent, SphereRendererComponent>(entity);
+				Renderer3D::DrawSphere(
+					transform.GetTransform(), 
+					sphere.Color, 
+					sphere.Radius, 
+					sphere.Sectors, 
+					sphere.Stacks, 
+					sphere.TextureIndex
+				);
+			}
+		}
+
+		Renderer3D::EndScene();
 	}
 
 	void Scene::OnViewportResize(uint32_t width, uint32_t height)
@@ -410,6 +461,7 @@ namespace Wasteland {
 		CopyComponentIfExists<SpriteRendererComponent>(newEntity, entity);
 		CopyComponentIfExists<CircleRendererComponent>(newEntity, entity);
 		CopyComponentIfExists<CubeRendererComponent>(newEntity, entity);
+		CopyComponentIfExists<SphereRendererComponent>(newEntity, entity);
 		CopyComponentIfExists<CameraComponent>(newEntity, entity);
 		CopyComponentIfExists<Rigidbody2DComponent>(newEntity, entity);
 		CopyComponentIfExists<BoxCollider2DComponent>(newEntity, entity);
@@ -479,6 +531,12 @@ namespace Wasteland {
 
 	template<>
 	void Scene::OnComponentAdded<CubeRendererComponent>(Entity entity, CubeRendererComponent& component)
+	{
+
+	}
+
+	template<>
+	void Scene::OnComponentAdded<SphereRendererComponent>(Entity entity, SphereRendererComponent& component)
 	{
 
 	}

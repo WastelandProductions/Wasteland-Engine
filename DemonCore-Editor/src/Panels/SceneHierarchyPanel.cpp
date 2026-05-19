@@ -117,6 +117,15 @@ namespace Wasteland {
 					}
 				}
 
+				if (!m_SelectionContext.HasComponent<SphereRendererComponent>())
+				{
+					if (ImGui::MenuItem("Sphere Renderer"))
+					{
+						m_SelectionContext.AddComponent<SphereRendererComponent>();
+						ImGui::CloseCurrentPopup();
+					}
+				}
+
 				if (!m_SelectionContext.HasComponent<Rigidbody2DComponent>())
 				{
 					if (ImGui::MenuItem("Rigidbody 2D"))
@@ -500,6 +509,41 @@ namespace Wasteland {
 
 			if (removeComponent)
 				entity.RemoveComponent<CubeRendererComponent>();
+		}
+
+		if (entity.HasComponent<SphereRendererComponent>())
+		{
+			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4, 4 });
+			bool open = ImGui::TreeNodeEx((void*)typeid(SphereRendererComponent).hash_code(), treeNodeFlags, "Sphere Renderer");
+			ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
+			if (ImGui::Button("+", ImVec2{ 20, 20 }))
+			{
+				ImGui::OpenPopup("ComponentSettings");
+			}
+			ImGui::PopStyleVar();
+
+			bool removeComponent = false;
+			if (ImGui::BeginPopup("ComponentSettings"))
+			{
+				if (ImGui::MenuItem("Remove Component"))
+					removeComponent = true;
+
+				ImGui::EndPopup();
+			}
+
+			if (open)
+			{
+				auto& src = entity.GetComponent<SphereRendererComponent>();
+				ImGui::ColorEdit4("Color", glm::value_ptr(src.Color));
+				ImGui::DragFloat("Radius", &src.Radius, 0.1f, 0.0f, 100.0f);
+				ImGui::DragInt("Sectors", &src.Sectors, 1, 3, 100);
+				ImGui::DragInt("Stacks", &src.Stacks, 1, 2, 100);
+				ImGui::DragInt("Texture Index", &src.TextureIndex);
+				ImGui::TreePop();
+			}
+
+			if (removeComponent)
+				entity.RemoveComponent<SphereRendererComponent>();
 		}
 
 		if (entity.HasComponent<Rigidbody2DComponent>())

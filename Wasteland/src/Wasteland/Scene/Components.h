@@ -79,6 +79,21 @@ namespace Wasteland {
 	{
 		glm::vec4 Color{ 1.0f, 1.0f, 1.0f, 1.0f };
 		int TextureIndex = 0; 
+
+		CubeRendererComponent() = default;
+		CubeRendererComponent(const CubeRendererComponent&) = default;
+	};
+
+	struct SphereRendererComponent 
+	{
+		glm::vec4 Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+		int TextureIndex = 0;
+		float Radius = 0.5f;
+		int Sectors = 20; // Horizontal smoothness
+		int Stacks = 20;  // Vertical smoothness
+
+		SphereRendererComponent() = default;
+		SphereRendererComponent(const SphereRendererComponent&) = default;
 	};
 
 	struct CameraComponent

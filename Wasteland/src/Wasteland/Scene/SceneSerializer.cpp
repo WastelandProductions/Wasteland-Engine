@@ -230,6 +230,21 @@ namespace Wasteland {
 			out << YAML::EndMap; // CubeRendererComponent
 		}
 
+		if (entity.HasComponent<SphereRendererComponent>())
+		{
+			out << YAML::Key << "SphereRendererComponent";
+			out << YAML::BeginMap; // SphereRendererComponent
+
+			auto& sphereRendererComponent = entity.GetComponent<SphereRendererComponent>();
+			out << YAML::Key << "Color" << YAML::Value << sphereRendererComponent.Color;
+			out << YAML::Key << "Radius" << YAML::Value << sphereRendererComponent.Radius;
+			out << YAML::Key << "Sectors" << YAML::Value << sphereRendererComponent.Sectors;
+			out << YAML::Key << "Stacks" << YAML::Value << sphereRendererComponent.Stacks;
+			out << YAML::Key << "TextureIndex" << YAML::Value << sphereRendererComponent.TextureIndex;
+
+			out << YAML::EndMap; // SphereRendererComponent
+		}
+
 		if (entity.HasComponent<Rigidbody2DComponent>())
 		{
 			out << YAML::Key << "Rigidbody2DComponent";
@@ -392,6 +407,18 @@ namespace Wasteland {
 					auto& crc = deserializedEntity.AddComponent<CubeRendererComponent>();
 					crc.Color = cubeRendererComponent["Color"].as<glm::vec4>();
 					crc.TextureIndex = cubeRendererComponent["TextureIndex"].as<int>();
+				}
+
+				auto sphereRendererComponent = entity["SphereRendererComponent"];
+				if (sphereRendererComponent)
+				{
+					// Entities always have transforms
+					auto& src = deserializedEntity.AddComponent<SphereRendererComponent>();
+					src.Color = sphereRendererComponent["Color"].as<glm::vec4>();
+					src.Radius = sphereRendererComponent["Radius"].as<float>();
+					src.Sectors = sphereRendererComponent["Sectors"].as<int>();
+					src.Stacks = sphereRendererComponent["Stacks"].as<int>();
+					src.TextureIndex = sphereRendererComponent["TextureIndex"].as<int>();
 				}
 
 				auto rigidbody2DComponent = entity["Rigidbody2DComponent"];
